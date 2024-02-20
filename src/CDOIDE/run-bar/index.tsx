@@ -1,16 +1,23 @@
-import "./styles/run-bar.css";
+import React from 'react';
+import './styles/run-bar.css';
 
 export const RunBar = () => {
   return (
     <div className="run-bar">
       <div>
-        <button onClick={() => alert("not implemented")}>Share</button>
+        <button type="button" onClick={() => alert('not implemented')}>
+          Share
+        </button>
       </div>
       <div>
-        <button onClick={() => alert("not implemented")}>Run</button>
+        <button type="button" onClick={() => alert('not implemented')}>
+          Run
+        </button>
       </div>
       <div>
-        <button onClick={() => alert("not implemented")}>Finish</button>
+        <button type="button" onClick={() => alert('not implemented')}>
+          Finish
+        </button>
       </div>
     </div>
   );

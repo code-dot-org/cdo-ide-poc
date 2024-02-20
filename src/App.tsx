@@ -15,19 +15,19 @@ const defaultConfig: ConfigType = {
   activeLeftNav: "Files",
   leftNav: [
     {
-      icon: "instructions.png",
+      icon: "fa-square-check",
       component: "Instructions",
     },
     {
-      icon: "files.png",
+      icon: "fa-file",
       component: "Files",
     },
     {
-      icon: "search.png",
+      icon: "fa-solid fa-magnifying-glass",
       component: "Search",
     },
   ],
-  sideBar: ["help.png", "folders.png"],
+  sideBar: ["fa-circle-question", "fa-folder"],
   instructions:
     "This is where some sort of instructions would go for this lesson",
 };

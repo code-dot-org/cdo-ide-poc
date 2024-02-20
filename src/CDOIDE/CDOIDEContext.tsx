@@ -1,11 +1,11 @@
-import React, { createContext, useContext } from "react";
+import React, {createContext, useContext} from 'react';
 
 import {
   ProjectType,
   ConfigType,
   SetProjectFunction,
   SetConfigFunction,
-} from "./types";
+} from './types';
 
 type CDOIDEContextType = {
   project: ProjectType;
@@ -20,7 +20,7 @@ export const CDOIDEContext = createContext<CDOIDEContextType | null>(null);
 export const useCDOIDEContext = () => {
   const context = useContext(CDOIDEContext);
   if (context === null) {
-    throw new Error("CDO IDE Context has not been provided!");
+    throw new Error('CDO IDE Context has not been provided!');
   }
   return context;
 };

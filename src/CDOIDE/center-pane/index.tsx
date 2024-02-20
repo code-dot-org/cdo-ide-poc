@@ -1,10 +1,11 @@
+import React from "react";
 import "./styles/center-pane.css";
 
 import { useCDOIDEContext } from "../CDOIDEContext";
 
 import { FileNav } from "./FileNav";
 import { Debugger } from "./Debugger";
-import { Editor } from "./Editor";
+import { Editor } from "./InternalEditor";
 
 import {
   SaveFileFunction,
@@ -54,7 +55,6 @@ export const CenterPane = () => {
     }
 
     if (activeFile?.name !== fileName) {
-      console.log("ACTIVE : ", newProject);
       setProject(newProject);
     }
   };

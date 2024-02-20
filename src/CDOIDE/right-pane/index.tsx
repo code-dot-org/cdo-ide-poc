@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./styles/right-pane.css";
 
 import { useCDOIDEContext } from "../CDOIDEContext";
@@ -67,9 +67,9 @@ export const RightPane = () => {
             </option>
           ))}
       </select>
-
       {previewFile && (
         <iframe
+          title="Web Preview"
           ref={iframeRef}
           id="preview"
           style={{ width: "100%", height: "100%" }}
