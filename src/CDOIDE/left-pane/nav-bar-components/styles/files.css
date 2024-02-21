@@ -4,9 +4,19 @@
 .left-main ul {
   padding-left: 10px;
 }
+
+.left-main ul li {
+}
+
 .left-main ul li span.label {
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
+  width: 100%;
+}
+.left-main ul li span.title {
+  display: flex;
+  justify-content: flex-start;
   cursor: pointer;
 }
 
@@ -15,4 +25,14 @@
   justify-content: space-between;
   font-size: 75%;
   padding: 5px;
+}
+
+.left-main ul li span.button-bar {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+span.caret {
+  padding-right: 2px;
 }

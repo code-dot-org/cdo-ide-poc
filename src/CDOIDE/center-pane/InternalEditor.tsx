@@ -35,17 +35,17 @@ export const Editor = ({ saveFile = () => {} }: EditorProps) => {
   const { project } = useCDOIDEContext();
 
   const file = Object.values(project.files).filter((f) => f.active)?.[0];
-  console.log("EDITS : ", file);
+
   const onChange = useCallback(
     (value: string) => {
-      saveFile(file.name, value);
+      saveFile(file.id, value);
     },
     [file]
   );
 
   const format = async () => {
     const prettified = await prettify(file.contents, file.language);
-    saveFile(file.name, prettified);
+    saveFile(file.id, prettified);
   };
 
   if (file.language !== "html" && file.language !== "css") {

@@ -17,17 +17,18 @@ export type ConfigType = {
 export type ProjectFolderType = {
   id: string;
   name: string;
-  parentId?: string;
+  parentId: string;
   open?: boolean;
 };
 
 export type ProjectFileType = {
+  id: string;
   name: string;
   language: string;
   contents: string;
   open?: boolean;
   active?: boolean;
-  folderId?: string;
+  folderId: string;
 };
 
 export type ProjectType = {

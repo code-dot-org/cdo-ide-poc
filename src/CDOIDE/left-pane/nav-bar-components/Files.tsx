@@ -1,20 +1,22 @@
-import React from 'react';
-import {useCDOIDEContext} from '../../CDOIDEContext';
+import React from "react";
+import { useCDOIDEContext } from "../../CDOIDEContext";
 
-import {ProjectType} from '../../types';
+import { ProjectType } from "../../types";
 
-import './styles/files.css';
+import "./styles/files.css";
 
 type FoldersProps = {
   newFolder: (parentId?: string) => void;
   openFolder: (folderId: string) => void;
   deleteFolder: (folderId: string) => void;
-  folders: ProjectType['folders'];
+  folders: ProjectType["folders"];
   parentId?: string;
-  files: ProjectType['files'];
-  openFile: (fileName: string) => void;
-  deleteFile: (fileName: string) => void;
+  files: ProjectType["files"];
+  openFile: (fileId: string) => void;
+  deleteFile: (fileId: string) => void;
   newFile: (folderId?: string) => void;
+  renameFile: (fileId: string) => void;
+  renameFolder: (folderId: string) => void;
 };
 
 type Obj = {
@@ -32,30 +34,55 @@ const Folders = ({
   openFile,
   deleteFile,
   newFile,
+  renameFile,
+  renameFolder,
 }: FoldersProps) => {
   const L: Record<string, Obj> = {
-    X: {name: '1', foo: 'f2'},
-    Y: {name: '2', foo: 'f3'},
-    Z: {name: '3', foo: 'f4'},
+    X: { name: "1", foo: "f2" },
+    Y: { name: "2", foo: "f3" },
+    Z: { name: "3", foo: "f4" },
   };
 
-  Object.values(L).filter(l => l.name === 'able');
+  Object.values(L).filter((l) => l.name === "able");
 
   return (
     <>
       {Object.values(folders)
-        .filter(f => f.parentId === parentId)
+        .filter((f) => f.parentId === parentId)
         .sort((a, b) => a.name.localeCompare(b.name))
-        .map(f => {
-          const caret = f.open ? 'V' : '>';
+        .map((f) => {
+          const caret = (
+            <i
+              className={
+                f.open ? "fa-solid fa-caret-down" : "fa-solid fa-caret-right"
+              }
+            />
+          );
+
           return (
-            <li key={f.id}>
+            <li key={f.id + f.open}>
               <span className="label">
-                <span onClick={() => openFolder(f.id)}>{caret}</span>
-                <span>{f.name}</span>
-                <span onClick={() => newFolder(f.id)}>+</span>
-                <span onClick={() => newFile(f.id)}>@</span>
-                <span onClick={() => deleteFolder(f.id)}>X</span>
+                <span className="title">
+                  <span className="caret" onClick={() => openFolder(f.id)}>
+                    {caret}
+                  </span>
+                  <span>{f.name}</span>
+                </span>
+
+                <span className="button-bar">
+                  <span onClick={() => renameFolder(f.id)}>
+                    <i className="fa-solid fa-pencil" />
+                  </span>
+                  <span onClick={() => newFolder(f.id)}>
+                    <i className="fa-solid fa-folder-plus" />
+                  </span>
+                  <span onClick={() => newFile(f.id)}>
+                    <i className="fa-solid fa-plus" />
+                  </span>
+                  <span onClick={() => deleteFolder(f.id)}>
+                    <i className="fa-solid fa-trash" />
+                  </span>
+                </span>
               </span>
               {f.open && (
                 <ul>
@@ -69,6 +96,8 @@ const Folders = ({
                     openFile={openFile}
                     deleteFile={deleteFile}
                     newFile={newFile}
+                    renameFile={renameFile}
+                    renameFolder={renameFolder}
                   />
                 </ul>
               )}
@@ -76,13 +105,20 @@ const Folders = ({
           );
         })}
       {Object.values(files)
-        .filter(f => f.folderId === parentId)
+        .filter((f) => f.folderId === parentId)
         .sort((a, b) => a.name.localeCompare(b.name))
-        .map(f => (
-          <li key={`${f.folderId || 0}/${f.name}`}>
+        .map((f) => (
+          <li key={f.id}>
             <span className="label">
-              <span onClick={() => openFile(f.name)}>{f.name}</span>
-              <span onClick={() => deleteFile(f.name)}>X</span>
+              <span onClick={() => openFile(f.id)}>{f.name}</span>
+              <span className="button-bar">
+                <span onClick={() => renameFile(f.id)}>
+                  <i className="fa-solid fa-pencil" />
+                </span>
+                <span onClick={() => deleteFile(f.name)}>
+                  <i className="fa-solid fa-trash" />
+                </span>
+              </span>
             </span>
           </li>
         ))}
@@ -91,77 +127,141 @@ const Folders = ({
 };
 
 export const Files = () => {
-  const {project, setProject} = useCDOIDEContext();
+  const { project, setProject } = useCDOIDEContext();
 
-  const newFolder: FoldersProps['newFolder'] = parentId => {
-    const newProject = {...project, folders: {...project.folders}};
+  const newFolder: FoldersProps["newFolder"] = (parentId = "0") => {
+    const newProject = { ...project, folders: { ...project.folders } };
 
-    const newFolders = Object.values(newProject.folders).filter(n =>
-      n.name.match(/New Folder (\d+)/)
+    const nextFolderId = String(
+      Math.max(...Object.keys(project.folders).map(Number)) + 1
     );
 
-    const newFolderName = `New Folder ${newFolders.length + 1}`;
-    const newFolderId = String(Object.keys(newProject.folders).length + 1);
+    const newFolderName = window.prompt("Please name your new folder");
+    if (!newFolderName) {
+      return;
+    }
 
-    newProject.folders[newFolderId] = {
+    const existingFolder = Object.values(project.folders).find(
+      (f) => f.name === newFolderName && f.parentId === parentId
+    );
+    if (existingFolder) {
+      alert("Folder already exists");
+      return;
+    }
+
+    newProject.folders[nextFolderId] = {
       name: newFolderName,
-      id: newFolderId,
+      id: nextFolderId,
       parentId,
     };
 
     setProject(newProject);
   };
 
-  const newFile: FoldersProps['newFile'] = folderId => {
-    const newProject = {...project, files: {...project.files}};
+  const newFile: FoldersProps["newFile"] = (folderId = "0") => {
+    const newProject = { ...project, files: { ...project.files } };
 
-    const newFiles = Object.keys(newProject.files).filter(n =>
-      n.match(/new_file_(\d+)/)
+    const nextFileId = String(
+      Math.max(...Object.keys(project.files).map(Number)) + 1
     );
+    console.log("NFI : ", nextFileId);
 
-    Object.values(newProject.files).forEach(f => {
+    Object.values(newProject.files).forEach((f) => {
       if (f.active) {
-        newProject.files[f.name] = {...f, active: false};
+        newProject.files[f.id] = { ...f, active: false };
       }
     });
 
-    const newFileName = `new_file_${newFiles.length + 1}.html`;
+    const newFileName = window.prompt("Please name your new file");
+    if (!newFileName) {
+      return;
+    }
 
-    newProject.files[newFileName] = {
+    const existingFile = Object.values(project.files).find(
+      (f) => f.name === newFileName && f.folderId === folderId
+    );
+    if (existingFile) {
+      alert("File already exists");
+      return;
+    }
+
+    const [_, extension] = newFileName.split(".");
+
+    newProject.files[nextFileId] = {
+      id: nextFileId,
       name: newFileName,
-      language: 'html',
-      contents: '<html><body>This is a newly created file!</body></html>',
+      language: extension || "html",
+      contents: `Add your changes to ${newFileName}`,
       open: true,
       active: true,
       folderId,
     };
-
+    console.log("NP IS : ", newProject, project);
     setProject(newProject);
   };
 
-  const openFile: FoldersProps['openFile'] = fileName => {
-    const activeFile = Object.values(project.files).filter(f => f.active)?.[0];
+  const openFile: FoldersProps["openFile"] = (fileId) => {
+    const activeFile = Object.values(project.files).filter(
+      (f) => f.active
+    )?.[0];
 
     const newProject = {
       ...project,
       files: {
         ...project.files,
-        [fileName]: {...project.files[fileName], active: true, open: true},
-        [activeFile.name]: {...project.files[activeFile.name], active: false},
+        [fileId]: { ...project.files[fileId], active: true, open: true },
       },
     };
 
     if (activeFile) {
-      newProject.files[activeFile.name].active = false;
+      newProject.files[activeFile.id].active = false;
     }
 
-    if (activeFile?.name !== fileName) {
+    if (activeFile?.id !== fileId) {
       setProject(newProject);
     }
   };
 
-  const deleteFile: FoldersProps['deleteFile'] = fileName => {
-    const activeFile = Object.values(project.files).filter(f => f.active)?.[0];
+  const renameFile: FoldersProps["renameFile"] = (fileId) => {
+    const file = project.files[fileId];
+    const newName = window.prompt("Rename file", file.name);
+    if (newName === null || newName === file.name) {
+      return;
+    }
+
+    const newProject = {
+      ...project,
+      files: {
+        ...project.files,
+        [file.id]: { ...project.files[file.id], name: newName },
+      },
+    };
+
+    setProject(newProject);
+  };
+
+  const renameFolder: FoldersProps["renameFolder"] = (folderId) => {
+    const folder = project.folders[folderId];
+    const newName = window.prompt("Rename folder", folder.name);
+    if (newName === null || newName === folder.name) {
+      return;
+    }
+
+    const newProject = {
+      ...project,
+      folders: {
+        ...project.folders,
+        [folder.id]: { ...project.folders[folder.id], name: newName },
+      },
+    };
+
+    setProject(newProject);
+  };
+
+  const deleteFile: FoldersProps["deleteFile"] = (fileId) => {
+    const activeFile = Object.values(project.files).filter(
+      (f) => f.active
+    )?.[0];
 
     const newProject = {
       ...project,
@@ -170,16 +270,16 @@ export const Files = () => {
       },
     };
 
-    delete newProject.files[fileName];
+    delete newProject.files[fileId];
 
-    if (activeFile && activeFile.name !== fileName) {
-      newProject.files[activeFile.name].active = false;
+    if (activeFile && activeFile.id !== fileId) {
+      newProject.files[activeFile.id].active = false;
     }
 
     setProject(newProject);
   };
 
-  const deleteFolder: FoldersProps['deleteFolder'] = folderId => {
+  const deleteFolder: FoldersProps["deleteFolder"] = (folderId) => {
     const newProject = {
       ...project,
       folders: {
@@ -193,13 +293,13 @@ export const Files = () => {
     // this only goes a single level deep atm. This'll be fixed as this component
     // is rewritten and shorn up.
     Object.values(newProject.folders)
-      .filter(f => f.parentId === folderId)
-      .forEach(f => delete newProject.folders[f.id]);
+      .filter((f) => f.parentId === folderId)
+      .forEach((f) => delete newProject.folders[f.id]);
 
     setProject(newProject);
   };
 
-  const openFolder: FoldersProps['openFolder'] = folderId => {
+  const openFolder: FoldersProps["openFolder"] = (folderId) => {
     const newProject = {
       ...project,
       folders: {
@@ -228,6 +328,7 @@ export const Files = () => {
       </div>
       <ul>
         <Folders
+          parentId={"0"}
           folders={project.folders}
           newFolder={newFolder}
           openFolder={openFolder}
@@ -236,6 +337,8 @@ export const Files = () => {
           openFile={openFile}
           deleteFile={deleteFile}
           newFile={newFile}
+          renameFile={renameFile}
+          renameFolder={renameFolder}
         />
       </ul>
     </div>

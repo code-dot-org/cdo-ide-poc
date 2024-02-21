@@ -16,27 +16,28 @@ import {
 export const CenterPane = () => {
   const { config, project, setProject } = useCDOIDEContext();
 
-  const saveFile: SaveFileFunction = (fileName, contents) => {
+  const saveFile: SaveFileFunction = (fileId, contents) => {
     setProject({
       ...project,
       files: {
         ...project.files,
-        [fileName]: { ...project.files[fileName], contents },
+        [fileId]: { ...project.files[fileId], contents },
       },
     });
   };
 
-  const closeFile: CloseFileFunction = (fileName) => {
+  const closeFile: CloseFileFunction = (fileId) => {
     setProject({
       ...project,
       files: {
         ...project.files,
-        [fileName]: { ...project.files[fileName], open: false },
+        [fileId]: { ...project.files[fileId], open: false },
       },
     });
   };
 
-  const setActiveFile: SetActiveFileFunction = (fileName) => {
+  const setActiveFile: SetActiveFileFunction = (fileId) => {
+    console.log("SAF : ", fileId);
     const activeFile = Object.values(project.files).filter(
       (f) => f.active
     )?.[0];
@@ -45,16 +46,15 @@ export const CenterPane = () => {
       ...project,
       files: {
         ...project.files,
-        [fileName]: { ...project.files[fileName], active: true },
-        [activeFile.name]: { ...project.files[activeFile.name], active: false },
+        [fileId]: { ...project.files[fileId], active: true },
       },
     };
 
     if (activeFile) {
-      newProject.files[activeFile.name].active = false;
+      newProject.files[activeFile.id].active = false;
     }
 
-    if (activeFile?.name !== fileName) {
+    if (activeFile?.id !== fileId) {
       setProject(newProject);
     }
   };

@@ -1,15 +1,15 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from "react";
 
-import {useCDOIDEContext} from '../CDOIDEContext';
+import { useCDOIDEContext } from "../CDOIDEContext";
 
-import CodeEditor from '@cdo/apps/lab2/views/components/editor/CodeEditor';
-import {html} from '@codemirror/lang-html';
-import {css} from '@codemirror/lang-css';
+import CodeEditor from "@cdo/apps/lab2/views/components/editor/CodeEditor";
+import { html } from "@codemirror/lang-html";
+import { css } from "@codemirror/lang-css";
 //import prettier from 'prettier/standalone';
 //import htmlParser from 'prettier/plugins/html';
 //import cssParser from 'prettier/plugins/postcss';
 
-import {SaveFileFunction} from './types';
+import { SaveFileFunction } from "./types";
 
 const codeMirrorLangMapping = {
   html: html(),
@@ -42,24 +42,24 @@ type EditorProps = {
   saveFile: SaveFileFunction;
 };
 
-export const Editor = ({saveFile = () => undefined}: EditorProps) => {
-  const {project} = useCDOIDEContext();
+export const Editor = ({ saveFile = () => undefined }: EditorProps) => {
+  const { project } = useCDOIDEContext();
 
-  const file = Object.values(project.files).filter(f => f.active)?.[0];
+  const file = Object.values(project.files).filter((f) => f.active)?.[0];
 
   const onChange = useCallback(
     (value: string) => {
-      saveFile(file.name, value);
+      saveFile(file.id, value);
     },
     [file, saveFile]
   );
 
   const format = async () => {
     const prettified = await prettify(file.contents /*, file.language*/);
-    saveFile(file.name, prettified);
+    saveFile(file.id, prettified);
   };
 
-  if (file.language !== 'html' && file.language !== 'css') {
+  if (file.language !== "html" && file.language !== "css") {
     return <div>Cannot currently edit non html/non css files</div>;
   }
 

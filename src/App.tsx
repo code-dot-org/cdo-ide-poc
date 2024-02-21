@@ -34,29 +34,42 @@ const defaultConfig: ConfigType = {
 
 const defaultProject: ProjectType = {
   folders: {
-    "1": { id: "1", name: "foo" },
+    "1": { id: "1", name: "foo", parentId: "0" },
     "2": { id: "2", name: "bar", parentId: "1" },
-    "3": { id: "3", name: "baz" },
+    "3": { id: "3", name: "baz", parentId: "0" },
   },
   files: {
-    "index.html": {
+    "1": {
+      id: "1",
       name: "index.html",
       language: "html",
-      contents: "<html><body>Content goes here!</body></html>",
+      contents: `<html>
+  <style src="styles.css"></style>
+  <body>
+    Content goes here!
+    <div class="foo">Foo class!</div>
+  </body>
+</html>
+`,
       open: true,
       active: true,
+      folderId: "0",
     },
-    "styles.css": {
+    "2": {
+      id: "2",
       name: "styles.css",
       language: "css",
       contents: ".foo { color : red}",
       open: true,
+      folderId: "0",
     },
-    "page.html": {
+    "3": {
+      id: "3",
       name: "page.html",
       language: "html",
       contents: "<html><body>This is a separate html page</body></html>",
       open: false,
+      folderId: "0",
     },
   },
 };
