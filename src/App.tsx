@@ -45,8 +45,8 @@ const defaultProject: ProjectType = {
       id: "1",
       name: "index.html",
       language: "html",
-      contents: `<html>
-  <style src="styles.css"></style>
+      contents: `<!DOCTYPE html><html>
+  <link rel="stylesheet" href="styles.css"></style>
   <body>
     Content goes here!
     <div class="foo">Foo class!</div>
@@ -69,7 +69,8 @@ const defaultProject: ProjectType = {
       id: "3",
       name: "page.html",
       language: "html",
-      contents: "<html><body>This is a separate html page</body></html>",
+      contents:
+        "<!DOCTYPE html><html><body>This is a separate html page</body></html>",
       open: false,
       folderId: "0",
     },
