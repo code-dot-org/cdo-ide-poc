@@ -5,7 +5,7 @@ import { useCDOIDEContext } from "../CDOIDEContext";
 
 import { FileNav } from "./FileNav";
 import { Debugger } from "./Debugger";
-import { Editor } from "./InternalEditor";
+import InternalEditor from "./InternalEditor";
 
 import {
   SaveFileFunction,
@@ -15,6 +15,8 @@ import {
 
 export const CenterPane = () => {
   const { config, project, setProject } = useCDOIDEContext();
+
+  const EditorComponent = config.EditorComponent || InternalEditor;
 
   const saveFile: SaveFileFunction = (fileId, contents) => {
     setProject({
@@ -70,7 +72,7 @@ export const CenterPane = () => {
         <FileNav setActiveFile={setActiveFile} closeFile={closeFile} />
       </div>
       <div className="center-main">
-        <Editor saveFile={saveFile} />
+        <EditorComponent saveFile={saveFile} />
       </div>
       {config.showDebug && <Debugger />}
     </div>

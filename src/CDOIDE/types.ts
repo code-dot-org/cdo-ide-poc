@@ -12,6 +12,7 @@ export type ConfigType = {
   sideBar: string[];
   instructions: string | undefined;
   leftNav: LeftNavElement[];
+  EditorComponent?: () => JSX.Element;
 };
 
 export type ProjectFolderType = {

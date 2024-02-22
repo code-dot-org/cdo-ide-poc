@@ -6,6 +6,7 @@ import { Config } from "./Config";
 
 import { CDOIDE } from "./CDOIDE/CDOIDE";
 import { ConfigType, ProjectType } from "./CDOIDE/types";
+import { FakeEditor } from "./FakeEditor";
 
 const defaultConfig: ConfigType = {
   showSideBar: true,
@@ -13,6 +14,7 @@ const defaultConfig: ConfigType = {
   showRunBar: true,
   showDebug: true,
   activeLeftNav: "Files",
+  //EditorComponent: FakeEditor,
   leftNav: [
     {
       icon: "fa-square-check",

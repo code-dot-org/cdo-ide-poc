@@ -31,7 +31,7 @@ type EditorProps = {
   saveFile: SaveFileFunction;
 };
 
-export const Editor = ({ saveFile = () => {} }: EditorProps) => {
+const Editor = ({ saveFile = () => {} }: EditorProps) => {
   const { project } = useCDOIDEContext();
 
   const file = Object.values(project.files).filter((f) => f.active)?.[0];
@@ -67,3 +67,5 @@ export const Editor = ({ saveFile = () => {} }: EditorProps) => {
     </div>
   );
 };
+
+export default Editor;
