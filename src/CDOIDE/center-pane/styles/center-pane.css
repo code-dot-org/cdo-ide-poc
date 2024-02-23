@@ -1,6 +1,7 @@
 .center-pane {
   display: grid;
   height: 100%;
+  grid-template-rows: 32px auto;
 }
 
 .center-side-bar {

@@ -4,7 +4,6 @@ import "./styles/center-pane.css";
 import { useCDOIDEContext } from "../CDOIDEContext";
 
 import { FileNav } from "./FileNav";
-import { Debugger } from "./Debugger";
 import InternalEditor from "./InternalEditor";
 
 import {
@@ -62,19 +61,13 @@ export const CenterPane = () => {
   };
 
   return (
-    <div
-      className="center-pane"
-      style={{
-        gridTemplateRows: config.showDebug ? "32px 1fr 1fr" : "32px auto",
-      }}
-    >
+    <div className="center-pane">
       <div className="center-nav">
         <FileNav setActiveFile={setActiveFile} closeFile={closeFile} />
       </div>
       <div className="center-main">
         <EditorComponent saveFile={saveFile} />
       </div>
-      {config.showDebug && <Debugger />}
     </div>
   );
 };

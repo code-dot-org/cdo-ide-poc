@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 
 import { useCDOIDEContext } from "../CDOIDEContext";
+import { DebuggerWrapper } from "../debugger/DebuggerWrapper";
 
 function updatePreview({
   styles = "",
@@ -85,7 +86,7 @@ export const HTMLPreview = ({ file }: HTMLPreviewProps) => {
   }, [files, file]);*/
 
   return (
-    <>
+    <DebuggerWrapper contentFrameHeight="1fr">
       {file && (
         <iframe
           allow="self"
@@ -96,6 +97,6 @@ export const HTMLPreview = ({ file }: HTMLPreviewProps) => {
           srcDoc={srcdoc}
         />
       )}
-    </>
+    </DebuggerWrapper>
   );
 };
