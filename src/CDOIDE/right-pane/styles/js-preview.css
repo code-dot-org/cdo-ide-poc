@@ -1,0 +1,16 @@
+.js-preview-container .button-bar {
+  width: 100%;
+  background-color: black;
+  color: white;
+  display: flex;
+
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.js-preview-container .js-preview-output iframe {
+  margin: 0;
+  padding: 0;
+  width: 99%;
+  height: 100%;
+}

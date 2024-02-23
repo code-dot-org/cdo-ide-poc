@@ -14,10 +14,12 @@
     "@codemirror/lang-css": "^6.2.1",
     "@codemirror/lang-html": "^6.4.8",
     "@codemirror/lang-javascript": "^6.2.1",
+    "@codemirror/lang-json": "^6.0.1",
     "@uiw/react-codemirror": "^4.21.21",
     "prettier": "^3.2.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "websandbox": "^0.5.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",

@@ -186,6 +186,10 @@ export const Files = () => {
     }
 
     const [_, extension] = newFileName.split(".");
+    if (!extension) {
+      window.alert("Files must have extensions");
+      return;
+    }
 
     newProject.files[nextFileId] = {
       id: nextFileId,

@@ -8,10 +8,12 @@ import { Debugger } from "./Debugger";
 
 type DebuggerWrapperProps = React.PropsWithChildren & {
   contentFrameHeight?: string;
+  debuggerOutput?: string[][];
 };
 
 export const DebuggerWrapper = ({
   contentFrameHeight = "1fr",
+  debuggerOutput,
   children,
 }: DebuggerWrapperProps) => {
   const { config } = useCDOIDEContext();
@@ -26,7 +28,7 @@ export const DebuggerWrapper = ({
       }}
     >
       <div className="debugger-wrapper-child">{children}</div>
-      {config.showDebug && <Debugger />}
+      {config.showDebug && <Debugger output={debuggerOutput} />}
     </div>
   );
 };

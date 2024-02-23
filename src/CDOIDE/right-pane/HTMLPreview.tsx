@@ -1,32 +1,10 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useRef, useMemo } from "react";
 
 import { useCDOIDEContext } from "../CDOIDEContext";
-import { DebuggerWrapper } from "../debugger/DebuggerWrapper";
-
-function updatePreview({
-  styles = "",
-  html = "",
-  iframe = null,
-}: {
-  styles: string | undefined;
-  html: string | undefined;
-  iframe: HTMLIFrameElement | null;
-}) {
-  const styleString = `
-    <style>
-      ${styles}
-    </style>
-`;
-
-  if (iframe?.contentWindow) {
-    iframe.contentWindow.document.head.innerHTML = styleString;
-
-    iframe.contentWindow.document.body.innerHTML = html;
-  }
-}
+import { ProjectFileType } from "../types";
 
 type HTMLPreviewProps = {
-  file: string;
+  file: ProjectFileType;
 };
 
 export const HTMLPreview = ({ file }: HTMLPreviewProps) => {
@@ -40,7 +18,7 @@ export const HTMLPreview = ({ file }: HTMLPreviewProps) => {
       return "";
     }
 
-    const contents = files[file].contents.replace(
+    const contents = file.contents.replace(
       new RegExp('<link rel="stylesheet" href="([^"]+)"></style>', "g"),
       (_, styleURI) => {
         // this is tedious. Break apart the style URI and look up all folders to get the final folder ID.
@@ -86,7 +64,7 @@ export const HTMLPreview = ({ file }: HTMLPreviewProps) => {
   }, [files, file]);*/
 
   return (
-    <DebuggerWrapper contentFrameHeight="1fr">
+    <>
       {file && (
         <iframe
           allow="self"
@@ -97,6 +75,6 @@ export const HTMLPreview = ({ file }: HTMLPreviewProps) => {
           srcDoc={srcdoc}
         />
       )}
-    </DebuggerWrapper>
+    </>
   );
 };

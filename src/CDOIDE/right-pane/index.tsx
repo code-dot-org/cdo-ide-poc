@@ -3,74 +3,62 @@ import "./styles/right-pane.css";
 
 import { useCDOIDEContext } from "../CDOIDEContext";
 import { HTMLPreview } from "./HTMLPreview";
+import { JSPreview } from "./JSPreview";
+import { JSONPreview } from "./JSONPreview";
 
-function updatePreview({
-  styles = "",
-  html = "",
-  iframe = null,
-}: {
-  styles: string | undefined;
-  html: string | undefined;
-  iframe: HTMLIFrameElement | null;
-}) {
-  const styleString = `
-    <style>
-      ${styles}
-    </style>
-`;
+import { previewFileType } from "../utils";
 
-  if (iframe?.contentWindow) {
-    iframe.contentWindow.document.head.innerHTML = styleString;
-
-    iframe.contentWindow.document.body.innerHTML = html;
-  }
-}
+const fileTypeMap = {
+  html: HTMLPreview,
+  js: JSPreview,
+  json: JSONPreview,
+};
 
 export const RightPane = () => {
+  const iframeRef = useRef(null);
   const {
     project: { files },
   } = useCDOIDEContext();
   const [previewFile, setPreviewFile] = useState(
-    Object.values(files).find((f) => f.name === "page.html" && !f.folderId)?.id
+    Object.values(files).find((f) => f.name === "page.html" && !f.folderId)
   );
 
   const activeFile = Object.values(files).find(
-    (f) => f.active && f.language === "html"
+    (f) => f.active && previewFileType(f.language)
   ); //*/
 
   useEffect(() => {
-    if (activeFile?.language === "html") {
-      setPreviewFile(activeFile.id);
+    if (previewFileType(activeFile?.language)) {
+      setPreviewFile(activeFile);
     }
   }, [activeFile]);
 
-  /*useEffect(() => {
-    if (previewFile) {
-      updatePreview({
-        styles: files["styles.css"].contents,
-        html: files[previewFile].contents,
-        iframe: iframeRef.current,
-      });
-    }
-  }, [files, previewFile]);*/
+  const PreviewComponent = fileTypeMap[previewFile?.language];
+  if (!PreviewComponent) {
+    return <div>Cannot preview files of type {previewFile?.language}</div>;
+  }
 
-  const iframeRef = useRef(null);
   return (
     <div className="right-pane">
       <select
-        onChange={(e) => setPreviewFile(e.target.value)}
-        value={previewFile}
+        onChange={(e) => {
+          const newFile = Object.values(files).find(
+            (f) => f.id === e.target.value
+          );
+          setPreviewFile(newFile);
+        }}
+        value={previewFile?.id}
       >
         {Object.values(files)
           .sort()
-          .filter((f) => f.language === "html")
+          .filter((f) => previewFileType(f.language))
           .map((file) => (
             <option key={file.id} value={file.id}>
               {file.name}
             </option>
           ))}
       </select>
-      {previewFile && <HTMLPreview file={previewFile} />}
+      {previewFile && <PreviewComponent file={previewFile} />}
     </div>
   );
 };

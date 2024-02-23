@@ -5,18 +5,27 @@ import { useCDOIDEContext } from "../CDOIDEContext";
 import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
+import { javascript as js } from "@codemirror/lang-javascript";
+import { json } from "@codemirror/lang-json";
 import prettier from "prettier/standalone";
 import htmlParser from "prettier/plugins/html";
 import cssParser from "prettier/plugins/postcss";
 
 import { SaveFileFunction } from "./types";
+import { editableFileType } from "../utils";
 
 const codeMirrorLangMapping = {
   html: html(),
   css: css(),
+  js: js(),
+  json: json(),
 };
 
 const prettify = async (val: string, language: string) => {
+  if (language !== "html" && language !== "css") {
+    return val;
+  }
+
   const formatted = await prettier.format(val, {
     parser: language,
     plugins: [cssParser, htmlParser],
@@ -48,8 +57,13 @@ const Editor = ({ saveFile = () => {} }: EditorProps) => {
     saveFile(file.id, prettified);
   };
 
-  if (file.language !== "html" && file.language !== "css") {
-    return <div>Cannot currently edit non html/non css files</div>;
+  if (!editableFileType(file.language)) {
+    return (
+      <div>
+        Can only edit html, css, or javascript files. Cannot edit{" "}
+        {file.language} files.
+      </div>
+    );
   }
 
   return (

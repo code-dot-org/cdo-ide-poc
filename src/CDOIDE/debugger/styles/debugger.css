@@ -20,4 +20,5 @@
 
 .debugger-view {
   background-color: #eee;
+  white-space: pre;
 }
