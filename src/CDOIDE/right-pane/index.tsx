@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./styles/right-pane.css";
 
-import { useCDOIDEContext } from "../CDOIDEContext";
+import { useCDOIDEContext } from "../cdo-ide-context";
 import { HTMLPreview } from "./HTMLPreview";
 import { JSPreview } from "./JSPreview";
 import { JSONPreview } from "./JSONPreview";

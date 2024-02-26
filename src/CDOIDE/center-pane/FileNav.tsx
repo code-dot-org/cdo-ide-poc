@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles/file-nav.css";
 
-import { useCDOIDEContext } from "../CDOIDEContext";
+import { useCDOIDEContext } from "../cdo-ide-context";
 
 type FileNavProps = {
   setActiveFile: (file: string) => void;

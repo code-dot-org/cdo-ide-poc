@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles/nav-bar.css";
 
-import { useCDOIDEContext } from "../CDOIDEContext";
+import { useCDOIDEContext } from "../cdo-ide-context";
 
 type NavBarProps = {
   setActivePane: (newActivePane: string) => void;

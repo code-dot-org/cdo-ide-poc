@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from "react";
 
-import { useCDOIDEContext } from "../CDOIDEContext";
+import { useCDOIDEContext } from "../cdo-ide-context";
 import { ProjectFileType } from "../types";
 
 type HTMLPreviewProps = {

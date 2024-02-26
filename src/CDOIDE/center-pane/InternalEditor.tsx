@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { useCDOIDEContext } from "../CDOIDEContext";
+import { useCDOIDEContext } from "../cdo-ide-context";
 
 import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
@@ -56,6 +56,10 @@ const Editor = ({ saveFile = () => {} }: EditorProps) => {
     const prettified = await prettify(file.contents, file.language);
     saveFile(file.id, prettified);
   };
+
+  if (!file) {
+    return <div></div>;
+  }
 
   if (!editableFileType(file.language)) {
     return (

@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 
-import { useCDOIDEContext } from "../CDOIDEContext";
+import { useCDOIDEContext } from "../cdo-ide-context";
 
 import CodeEditor from "@cdo/apps/lab2/views/components/editor/CodeEditor";
 import { html } from "@codemirror/lang-html";

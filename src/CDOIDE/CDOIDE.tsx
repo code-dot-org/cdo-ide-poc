@@ -1,18 +1,18 @@
-import React from 'react';
-import {CDOIDEContextProvider} from './CDOIDEContext';
+import React from "react";
+import { CDOIDEContextProvider } from "./cdo-ide-context";
 import {
   ProjectType,
   ConfigType,
   SetProjectFunction,
   SetConfigFunction,
-} from './types';
+} from "./types";
 
-import {LeftPane} from './left-pane';
-import {CenterPane} from './center-pane';
-import {RightPane} from './right-pane';
-import {RunBar} from './run-bar';
+import { LeftPane } from "./left-pane";
+import { CenterPane } from "./center-pane";
+import { RightPane } from "./right-pane";
+import { RunBar } from "./run-bar";
 
-import './styles/cdo-ide.css';
+import "./styles/cdo-ide.css";
 
 type CDOIDEProps = {
   project: ProjectType;
@@ -28,15 +28,15 @@ export const CDOIDE = ({
   setConfig,
 }: CDOIDEProps) => {
   return (
-    <CDOIDEContextProvider value={{project, config, setProject, setConfig}}>
+    <CDOIDEContextProvider value={{ project, config, setProject, setConfig }}>
       <div
         className="cdo-ide-outer"
-        style={{gridTemplateRows: config.showRunBar ? 'auto 40px' : 'auto'}}
+        style={{ gridTemplateRows: config.showRunBar ? "auto 40px" : "auto" }}
       >
         <div
           className="cdo-ide-inner"
           style={{
-            gridTemplateColumns: config.showPreview ? '1fr 2fr 2fr' : '1fr 2fr',
+            gridTemplateColumns: config.showPreview ? "1fr 2fr 2fr" : "1fr 2fr",
           }}
         >
           <div className="cdo-ide-area">

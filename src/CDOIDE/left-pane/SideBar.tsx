@@ -1,5 +1,5 @@
 import React from "react";
-import { useCDOIDEContext } from "../CDOIDEContext";
+import { useCDOIDEContext } from "../cdo-ide-context";
 
 import "./styles/side-bar.css";
 

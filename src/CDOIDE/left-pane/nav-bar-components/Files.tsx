@@ -1,5 +1,5 @@
 import React from "react";
-import { useCDOIDEContext } from "../../CDOIDEContext";
+import { useCDOIDEContext } from "../../cdo-ide-context";
 
 import { ProjectType } from "../../types";
 
@@ -115,7 +115,7 @@ const Folders = ({
                 <span onClick={() => renameFile(f.id)}>
                   <i className="fa-solid fa-pencil" />
                 </span>
-                <span onClick={() => deleteFile(f.name)}>
+                <span onClick={() => deleteFile(f.id)}>
                   <i className="fa-solid fa-trash" />
                 </span>
               </span>

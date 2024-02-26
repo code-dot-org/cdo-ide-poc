@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./styles/left-pane.css";
 
-import { useCDOIDEContext } from "../CDOIDEContext";
+import { useCDOIDEContext } from "../cdo-ide-context";
 import { NavBar } from "./NavBar";
 import { SideBar } from "./SideBar";
 import { Instructions, Files, Search } from "./nav-bar-components";
