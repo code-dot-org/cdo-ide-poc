@@ -1,5 +1,9 @@
-import React from "react";
-import { CDOIDEContextProvider } from "./cdo-ide-context";
+import React, { useReducer, useEffect } from "react";
+import {
+  CDOIDEContextProvider,
+  projectReducer,
+  useProjectUtilities,
+} from "./cdo-ide-context";
 import {
   ProjectType,
   ConfigType,
@@ -27,8 +31,23 @@ export const CDOIDE = ({
   setProject,
   setConfig,
 }: CDOIDEProps) => {
+  const [currentProject, dispatch] = useReducer(projectReducer, project);
+  const projectUtilities = useProjectUtilities(dispatch);
+
+  useEffect(() => {
+    setProject(currentProject);
+  }, [currentProject]);
+
   return (
-    <CDOIDEContextProvider value={{ project, config, setProject, setConfig }}>
+    <CDOIDEContextProvider
+      value={{
+        project: currentProject,
+        config,
+        setProject,
+        setConfig,
+        ...projectUtilities,
+      }}
+    >
       <div
         className="cdo-ide-outer"
         style={{ gridTemplateRows: config.showRunBar ? "auto 40px" : "auto" }}

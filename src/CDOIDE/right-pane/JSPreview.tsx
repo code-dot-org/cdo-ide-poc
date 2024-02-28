@@ -18,6 +18,7 @@ export const JSPreview = ({ file }: JSPreviewProps) => {
     const debugApi = {
       consoleLog: (...messages: any[]) => {
         setOutput((o) => [...o, messages]);
+        return Promise.resolve("messaged");
       },
     };
 

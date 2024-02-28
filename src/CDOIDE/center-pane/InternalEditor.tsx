@@ -3,18 +3,19 @@ import { useCallback } from "react";
 import { useCDOIDEContext } from "../cdo-ide-context";
 
 import CodeMirror from "@uiw/react-codemirror";
+
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 import { javascript as js } from "@codemirror/lang-javascript";
 import { json } from "@codemirror/lang-json";
+import { LanguageSupport } from "@codemirror/language";
 import prettier from "prettier/standalone";
 import htmlParser from "prettier/plugins/html";
 import cssParser from "prettier/plugins/postcss";
 
-import { SaveFileFunction } from "./types";
 import { editableFileType } from "../utils";
 
-const codeMirrorLangMapping = {
+const codeMirrorLangMapping: { [key: string]: LanguageSupport } = {
   html: html(),
   css: css(),
   js: js(),
@@ -36,12 +37,8 @@ const prettify = async (val: string, language: string) => {
   return formatted;
 };
 
-type EditorProps = {
-  saveFile: SaveFileFunction;
-};
-
-const Editor = ({ saveFile = () => {} }: EditorProps) => {
-  const { project } = useCDOIDEContext();
+const Editor = () => {
+  const { project, saveFile } = useCDOIDEContext();
 
   const file = Object.values(project.files).filter((f) => f.active)?.[0];
 
@@ -49,7 +46,7 @@ const Editor = ({ saveFile = () => {} }: EditorProps) => {
     (value: string) => {
       saveFile(file.id, value);
     },
-    [file]
+    [saveFile, file]
   );
 
   const format = async () => {

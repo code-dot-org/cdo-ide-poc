@@ -2,6 +2,7 @@ import React, { useRef, useMemo } from "react";
 
 import { useCDOIDEContext } from "../cdo-ide-context";
 import { ProjectFileType } from "../types";
+import { DEFAULT_FOLDER_ID } from "../constants";
 
 type HTMLPreviewProps = {
   file: ProjectFileType;
@@ -31,11 +32,11 @@ export const HTMLPreview = ({ file }: HTMLPreviewProps) => {
           (parentId: string, name: string) => {
             const folder = Object.values(folders).find(
               (f) => f.name === name && f.parentId === parentId
-            ) || { id: "0" };
+            ) || { id: DEFAULT_FOLDER_ID };
 
             return folder.id;
           },
-          "0"
+          DEFAULT_FOLDER_ID
         );
 
         const styleFile = Object.values(files).find(
@@ -52,16 +53,6 @@ export const HTMLPreview = ({ file }: HTMLPreviewProps) => {
 
     return contents;
   }, [files, file]);
-
-  /*useEffect(() => {
-    if (file) {
-      updatePreview({
-        styles: files["styles.css"].contents,
-        html: files[file].contents,
-        iframe: iframeRef.current,
-      });
-    }
-  }, [files, file]);*/
 
   return (
     <>

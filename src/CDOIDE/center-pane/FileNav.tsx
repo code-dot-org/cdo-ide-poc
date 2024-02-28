@@ -3,16 +3,9 @@ import "./styles/file-nav.css";
 
 import { useCDOIDEContext } from "../cdo-ide-context";
 
-type FileNavProps = {
-  setActiveFile: (file: string) => void;
-  closeFile: (file: string) => void;
-};
+export const FileNav = () => {
+  const { project, closeFile, setActiveFile } = useCDOIDEContext();
 
-export const FileNav = ({
-  setActiveFile = () => undefined,
-  closeFile = () => undefined,
-}: FileNavProps) => {
-  const { project } = useCDOIDEContext();
   const files = Object.values(project.files)
     .filter((f) => f.open)
     .sort((a, b) => a.name.localeCompare(b.name));

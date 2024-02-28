@@ -7,20 +7,34 @@ import { JSPreview } from "./JSPreview";
 import { JSONPreview } from "./JSONPreview";
 
 import { previewFileType } from "../utils";
+import { ProjectFileType } from "../types";
 
-const fileTypeMap = {
+const fileTypeMap: {
+  [key: string]: (args: { file: ProjectFileType }) => JSX.Element;
+} = {
   html: HTMLPreview,
   js: JSPreview,
   json: JSONPreview,
 };
 
+const getPreviewComponent = (previewFile?: ProjectFileType) => {
+  if (!previewFile) {
+    return () => "";
+  } else if (fileTypeMap[previewFile?.language!]) {
+    return fileTypeMap[previewFile?.language!];
+  } else {
+    return () => (
+      <div>Cannot preview files of type {previewFile?.language}</div>
+    );
+  }
+};
+
 export const RightPane = () => {
-  const iframeRef = useRef(null);
   const {
     project: { files },
   } = useCDOIDEContext();
   const [previewFile, setPreviewFile] = useState(
-    Object.values(files).find((f) => f.name === "page.html" && !f.folderId)
+    Object.values(files).find((f) => f.name === "index.html" && !f.folderId)
   );
 
   const activeFile = Object.values(files).find(
@@ -28,15 +42,20 @@ export const RightPane = () => {
   ); //*/
 
   useEffect(() => {
-    if (previewFileType(activeFile?.language)) {
+    if (previewFileType(activeFile?.language!)) {
       setPreviewFile(activeFile);
     }
   }, [activeFile]);
 
-  const PreviewComponent = fileTypeMap[previewFile?.language];
-  if (!PreviewComponent) {
-    return <div>Cannot preview files of type {previewFile?.language}</div>;
-  }
+  useEffect(() => {
+    if (previewFile && !files[previewFile.id]) {
+      setPreviewFile(
+        Object.values(files).find((f) => previewFileType(f.language))
+      );
+    }
+  }, [previewFile, files]);
+
+  const PreviewComponent = getPreviewComponent(previewFile);
 
   return (
     <div className="right-pane">

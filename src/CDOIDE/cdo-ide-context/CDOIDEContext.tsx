@@ -1,17 +1,42 @@
-import React, {createContext, useContext} from 'react';
+import React, { createContext, useContext } from "react";
+
+import {
+  SaveFileFunction,
+  CloseFileFunction,
+  SetActiveFileFunction,
+  NewFolderFunction,
+  ToggleOpenFolderFunction,
+  DeleteFolderFunction,
+  OpenFileFunction,
+  DeleteFileFunction,
+  NewFileFunction,
+  RenameFileFunction,
+  RenameFolderFunction,
+} from "./types";
 
 import {
   ProjectType,
   ConfigType,
   SetProjectFunction,
   SetConfigFunction,
-} from './types';
+} from "../types";
 
 type CDOIDEContextType = {
   project: ProjectType;
   config: ConfigType;
   setProject: SetProjectFunction;
   setConfig: SetConfigFunction;
+  saveFile: SaveFileFunction;
+  closeFile: CloseFileFunction;
+  setActiveFile: SetActiveFileFunction;
+  newFolder: NewFolderFunction;
+  toggleOpenFolder: ToggleOpenFolderFunction;
+  deleteFolder: DeleteFolderFunction;
+  openFile: OpenFileFunction;
+  deleteFile: DeleteFileFunction;
+  newFile: NewFileFunction;
+  renameFile: RenameFileFunction;
+  renameFolder: RenameFolderFunction;
 };
 
 export const CDOIDEContext = createContext<CDOIDEContextType | null>(null);
@@ -20,7 +45,7 @@ export const CDOIDEContext = createContext<CDOIDEContextType | null>(null);
 export const useCDOIDEContext = () => {
   const context = useContext(CDOIDEContext);
   if (context === null) {
-    throw new Error('CDO IDE Context has not been provided!');
+    throw new Error("CDO IDE Context has not been provided!");
   }
   return context;
 };

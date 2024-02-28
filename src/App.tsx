@@ -8,6 +8,14 @@ import { CDOIDE } from "./CDOIDE/CDOIDE";
 import { ConfigType, ProjectType } from "./CDOIDE/types";
 import { FakeEditor } from "./FakeEditor";
 
+const instructions = `Add html pages and preview them in the right pane.
+
+Add css pages (and link them to your html).
+
+Add javascript files (ending in .js) and execute javascript code in the right pane.
+
+Use the file browser to add/rename/delete files, or to add/rename/delete folders (including hierarchically!)`;
+
 const defaultConfig: ConfigType = {
   showSideBar: true,
   showPreview: true,
@@ -30,8 +38,7 @@ const defaultConfig: ConfigType = {
     },
   ],
   sideBar: ["fa-circle-question", "fa-folder"],
-  instructions:
-    "This is where some sort of instructions would go for this lesson",
+  instructions,
 };
 
 const defaultProject: ProjectType = {
@@ -39,6 +46,9 @@ const defaultProject: ProjectType = {
     "1": { id: "1", name: "foo", parentId: "0" },
     "2": { id: "2", name: "bar", parentId: "1" },
     "3": { id: "3", name: "baz", parentId: "0" },
+    "4": { id: "4", name: "f1", parentId: "1" },
+    "5": { id: "5", name: "f2", parentId: "1" },
+    "6": { id: "6", name: "b1", parentId: "2" },
   },
   files: {
     "1": {
@@ -73,6 +83,33 @@ const defaultProject: ProjectType = {
         "<!DOCTYPE html><html><body>This is a separate html page</body></html>",
       open: false,
       folderId: "0",
+    },
+    "4": {
+      id: "4",
+      name: "test4.html",
+      language: "html",
+      contents:
+        "<!DOCTYPE html><html><body>This is a sub folder html page</body></html>",
+      open: false,
+      folderId: "2",
+    },
+    "5": {
+      id: "5",
+      name: "test5.html",
+      language: "html",
+      contents:
+        "<!DOCTYPE html><html><body>This is a sub folder html page</body></html>",
+      open: false,
+      folderId: "4",
+    },
+    "6": {
+      id: "6",
+      name: "test6-1.html",
+      language: "html",
+      contents:
+        "<!DOCTYPE html><html><body>This is a sub folder html page</body></html>",
+      open: false,
+      folderId: "1",
     },
   },
 };
