@@ -5,7 +5,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/cdoide.js"
+      "import": "./dist/cdo-ide-poc.js"
     }
   },
   "scripts": {
