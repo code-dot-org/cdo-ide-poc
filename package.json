@@ -1,5 +1,5 @@
 {
-  "name": "cdo-codemirror-editor-poc",
+  "name": "cdo-ide-poc",
   "private": true,
   "version": "0.0.0",
   "type": "module",
