@@ -23,6 +23,7 @@
     "prettier": "^3.2.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "vite-plugin-dts": "^3.7.3",
     "websandbox": "^0.5.3"
   },
   "devDependencies": {
