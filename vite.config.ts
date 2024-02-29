@@ -10,7 +10,7 @@ export default defineConfig({
     sourcemap: true,
     lib: {
       entry: {
-        "cdo-ide": path.resolve(__dirname, "src/exports/index.ts"),
+        "cdo-ide-poc": path.resolve(__dirname, "src/exports/index.ts"),
       },
       formats: ["es"],
     },
