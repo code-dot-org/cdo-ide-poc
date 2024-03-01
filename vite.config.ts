@@ -2,11 +2,13 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import path from "path";
+import libCss from "vite-plugin-libcss";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "/cdo-codemirror-editor-poc",
   plugins: [
+    libCss(),
     react(),
     dts({
       insertTypesEntry: true,

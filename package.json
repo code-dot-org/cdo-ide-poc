@@ -24,6 +24,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "vite-plugin-dts": "^3.7.3",
+    "vite-plugin-libcss": "^1.1.1",
     "websandbox": "^0.5.3"
   },
   "devDependencies": {
