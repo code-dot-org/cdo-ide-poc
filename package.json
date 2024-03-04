@@ -6,9 +6,17 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/cdo-ide-poc.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/cdo-ide-poc.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/cdo-ide-poc.js"
+      }
     }
   },
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
     "tscbuild": "tsc && vite build",
