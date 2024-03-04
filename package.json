@@ -29,6 +29,7 @@
     "@codemirror/lang-html": "^6.4.8",
     "@codemirror/lang-javascript": "^6.2.1",
     "@codemirror/lang-json": "^6.0.1",
+    "@uiw/react-codemirror": "^4.21.24",
     "prettier": "^3.2.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",

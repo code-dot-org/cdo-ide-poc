@@ -13,6 +13,8 @@
   justify-content: space-between;
   cursor: pointer;
   width: 100%;
+  background-color: #eee;
+  color: black;
 }
 .left-main ul li span.title {
   display: flex;
@@ -33,6 +35,6 @@
   cursor: pointer;
 }
 
-span.caret {
+span.caret-container {
   padding-right: 2px;
 }

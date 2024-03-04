@@ -1,3 +1,4 @@
+declare module "cdo-ide-poc" {
 /// <reference types="react" />
 
 import { JSX as JSX_2 } from 'react/jsx-runtime';
@@ -57,6 +58,8 @@ export declare type DeleteFileFunction = (fileId: string) => void;
 
 export declare type DeleteFolderFunction = (folderId: string) => void;
 
+export declare const editableFileType: (language: string) => boolean;
+
 export declare const findFiles: (folderId: string, files: ProjectFileType[], folders?: ProjectFolderType[]) => string[];
 
 export declare const findSubFolders: (parentId: string, folders: ProjectFolderType[]) => string[];
@@ -84,6 +87,8 @@ export declare type NewFolderFunction = (arg: {
 }) => void;
 
 export declare type OpenFileFunction = (fileId: string) => void;
+
+export declare const previewFileType: (language: string) => boolean;
 
 export declare const PROJECT_REDUCER_ACTIONS: {
     NEW_FILE: string;
@@ -159,3 +164,4 @@ export declare const useProjectUtilities: (dispatch: React.Dispatch<ReducerActio
 };
 
 export { }
+}

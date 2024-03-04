@@ -23,6 +23,7 @@ export default defineConfig({
   build: {
     sourcemap: true,
     lib: {
+      name: "cdo-ide-poc",
       entry: {
         "cdo-ide-poc": path.resolve(__dirname, "src/exports/index.ts"),
       },

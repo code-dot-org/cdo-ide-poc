@@ -727,7 +727,7 @@ const ye = $e(null), L = () => {
             /* @__PURE__ */ a.jsx(
               "span",
               {
-                className: "caret",
+                className: "caret-container",
                 onClick: () => O(m.id),
                 children: S
               }
@@ -1917,7 +1917,7 @@ const En = /* @__PURE__ */ Ke(gn), yn = ({ output: n }) => {
     ] });
   }
   return /* @__PURE__ */ a.jsx("div", { className: "json-preview", children: o });
-}, z = (n) => (/* @__PURE__ */ new Set(["html", "js", "json"])).has(n), _e = {
+}, Rn = (n) => (/* @__PURE__ */ new Set(["html", "css", "js", "json"])).has(n), z = (n) => (/* @__PURE__ */ new Set(["html", "js", "json"])).has(n), _e = {
   html: _n,
   js: Cn,
   json: On
@@ -1959,7 +1959,7 @@ const En = /* @__PURE__ */ Ke(gn), yn = ({ output: n }) => {
 }, jn = () => /* @__PURE__ */ a.jsxs("div", { className: "run-bar", children: [
   /* @__PURE__ */ a.jsx("div", { children: /* @__PURE__ */ a.jsx("button", { type: "button", onClick: () => alert("not implemented"), children: "Share" }) }),
   /* @__PURE__ */ a.jsx("div", { children: /* @__PURE__ */ a.jsx("button", { type: "button", onClick: () => alert("not implemented"), children: "Finish" }) })
-] }), Rn = ({
+] }), kn = ({
   project: n,
   config: o,
   setProject: l,
@@ -2006,14 +2006,16 @@ const En = /* @__PURE__ */ Ke(gn), yn = ({ output: n }) => {
   );
 };
 export {
-  Rn as CDOIDE,
+  kn as CDOIDE,
   ye as CDOIDEContext,
   Qe as CDOIDEContextProvider,
   M as PROJECT_REDUCER_ACTIONS,
+  Rn as editableFileType,
   rn as findFiles,
   ie as findSubFolders,
   nn as getNextFileId,
   tn as getNextFolderId,
+  z as previewFileType,
   sn as projectReducer,
   L as useCDOIDEContext,
   an as useProjectUtilities
