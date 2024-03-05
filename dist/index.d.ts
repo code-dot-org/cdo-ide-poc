@@ -88,6 +88,8 @@ export declare type NewFolderFunction = (arg: {
 
 export declare type OpenFileFunction = (fileId: string) => void;
 
+export declare const prettify: (val: string, language: string) => Promise<string>;
+
 export declare const previewFileType: (language: string) => boolean;
 
 export declare const PROJECT_REDUCER_ACTIONS: {
