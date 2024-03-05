@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import path from "path";
 import libCss from "vite-plugin-libcss";
+import fs from "node:fs";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,6 +14,16 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       rollupTypes: true,
+      afterBuild: (map) => {
+        for (const [path, content] of Array.from(map.entries())) {
+          const wrapped = `declare module "cdo-ide-poc" {\r\n${content}}\r\n`;
+          fs.writeFile(path, wrapped, (e) => {
+            if (e) {
+              console.error(e);
+            }
+          });
+        }
+      },
     }),
   ],
   resolve: {
