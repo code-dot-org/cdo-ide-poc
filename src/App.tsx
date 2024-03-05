@@ -6,7 +6,8 @@ import { Config } from "./Config";
 
 import { CDOIDE } from "./CDOIDE/CDOIDE";
 import { ConfigType, ProjectType } from "./CDOIDE/types";
-import { FakeEditor } from "./FakeEditor";
+//import { FakeEditor } from "./FakeEditor";
+import InternalEditor from "./CDOIDE/center-pane/InternalEditor";
 
 const instructions = `Add html pages and preview them in the right pane.
 
@@ -22,7 +23,7 @@ const defaultConfig: ConfigType = {
   showRunBar: true,
   showDebug: true,
   activeLeftNav: "Files",
-  //EditorComponent: FakeEditor,
+  EditorComponent: InternalEditor,
   leftNav: [
     {
       icon: "fa-square-check",
@@ -56,7 +57,7 @@ const defaultProject: ProjectType = {
       name: "index.html",
       language: "html",
       contents: `<!DOCTYPE html><html>
-  <link rel="stylesheet" href="styles.css"></style>
+  <link rel="stylesheet" href="styles.css"/>
   <body>
     Content goes here!
     <div class="foo">Foo class!</div>

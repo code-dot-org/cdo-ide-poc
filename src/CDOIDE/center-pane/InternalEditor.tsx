@@ -9,32 +9,14 @@ import { css } from "@codemirror/lang-css";
 import { javascript as js } from "@codemirror/lang-javascript";
 import { json } from "@codemirror/lang-json";
 import { LanguageSupport } from "@codemirror/language";
-import prettier from "prettier/standalone";
-import htmlParser from "prettier/plugins/html";
-import cssParser from "prettier/plugins/postcss";
 
-import { editableFileType } from "../utils";
+import { editableFileType, prettify } from "../utils";
 
 const codeMirrorLangMapping: { [key: string]: LanguageSupport } = {
   html: html(),
   css: css(),
   js: js(),
   json: json(),
-};
-
-const prettify = async (val: string, language: string) => {
-  if (language !== "html" && language !== "css") {
-    return val;
-  }
-
-  const formatted = await prettier.format(val, {
-    parser: language,
-    plugins: [cssParser, htmlParser],
-    tabWidth: 2,
-    htmlWhitespaceSensitivity: "ignore",
-  });
-
-  return formatted;
 };
 
 const Editor = () => {
@@ -50,8 +32,12 @@ const Editor = () => {
   );
 
   const format = async () => {
-    const prettified = await prettify(file.contents, file.language);
-    saveFile(file.id, prettified);
+    try {
+      const prettified = await prettify(file.contents, file.language);
+      saveFile(file.id, prettified);
+    } catch (e) {
+      console.log("FAILURE : ", e);
+    }
   };
 
   if (!file) {

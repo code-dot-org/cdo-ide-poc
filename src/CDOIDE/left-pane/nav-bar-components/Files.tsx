@@ -55,7 +55,7 @@ const FilesBrowser = ({
               <span className="label">
                 <span className="title">
                   <span
-                    className="caret"
+                    className="caret-container"
                     onClick={() => toggleOpenFolder(f.id)}
                   >
                     {caret}
