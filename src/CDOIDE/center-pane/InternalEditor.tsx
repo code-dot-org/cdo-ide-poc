@@ -62,7 +62,7 @@ const Editor = () => {
   return (
     <div className="editor-container">
       <button onClick={() => format()}>Format</button>
-      <select onChange={(e) => setTheme(e.target.value)}>
+      <select onChange={(e) => setTheme(e.target.value as EditorTheme)}>
         <option value="light">light theme</option>
         <option value="dark">dark theme</option>
       </select>
