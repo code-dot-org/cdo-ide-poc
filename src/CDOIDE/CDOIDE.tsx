@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useRef, useReducer, useEffect } from "react";
 import {
   CDOIDEContextProvider,
   projectReducer,
@@ -31,17 +31,39 @@ export const CDOIDE = ({
   setProject,
   setConfig,
 }: CDOIDEProps) => {
-  const [currentProject, dispatch] = useReducer(projectReducer, project);
+  // keep track of if we should fire the callback in case of a project change. The only time we
+  // do -not- want to do it is if replaceProject was called, which only happens once in an effect here
+  const shouldNotifyProjectUpdate = useRef(true);
+  const [internalProject, dispatch] = useReducer(projectReducer, project);
   const projectUtilities = useProjectUtilities(dispatch);
 
+  // now, when anything has been dispatched, and our internalProject has changed we should
+  // notify the external callback. UNLESS it's been disabled.
+  // regardless, we always re-enable updates after we're done.
+  // There's only one time when we don't want to call the callback, and that's when
+  // we're replacing the project itself in the next effect
   useEffect(() => {
-    setProject(currentProject);
-  }, [currentProject]);
+    if (shouldNotifyProjectUpdate.current) {
+      setProject(internalProject);
+    }
+    shouldNotifyProjectUpdate.current = true;
+  }, [internalProject]);
+
+  // okay, so if we replace the project itself, we need to confirm that it actually changed
+  // so only do anything if the project is not the internalProject.
+  // and do NOT fire off the setProject callback on this action and this action only. So we disable
+  // updates. We'll re-enable them when the internalProject effect fires up above.
+  useEffect(() => {
+    if (project !== internalProject) {
+      projectUtilities.replaceProject(project);
+      shouldNotifyProjectUpdate.current = false;
+    }
+  }, [project, internalProject]);
 
   return (
     <CDOIDEContextProvider
       value={{
-        project: currentProject,
+        project: internalProject,
         config,
         setProject,
         setConfig,

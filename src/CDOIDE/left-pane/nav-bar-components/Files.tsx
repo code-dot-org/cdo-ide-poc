@@ -49,7 +49,6 @@ const FilesBrowser = ({
               }
             />
           );
-
           return (
             <li key={f.id + f.open}>
               <span className="label">
