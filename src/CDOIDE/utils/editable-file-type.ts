@@ -1,5 +1,8 @@
-export const editableFileType = (language: string) => {
-  const availableLanguages = new Set(["html", "css", "js", "json"]);
-
-  return availableLanguages.has(language);
+const defaultEditableFileTypesArray = ["html", "css", "js", "json"];
+export const editableFileType = (
+  language: string,
+  editableFileTypesArray = defaultEditableFileTypesArray
+) => {
+  const editableFileTypes = new Set(editableFileTypesArray);
+  return editableFileTypes.has(language);
 };

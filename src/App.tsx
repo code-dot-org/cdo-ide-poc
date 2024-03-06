@@ -24,6 +24,8 @@ const defaultConfig: ConfigType = {
   showDebug: true,
   activeLeftNav: "Files",
   EditorComponent: InternalEditor,
+  // editableFileTypes: ["html"],
+  // previewFileTypes: ["html"],
   leftNav: [
     {
       icon: "fa-square-check",

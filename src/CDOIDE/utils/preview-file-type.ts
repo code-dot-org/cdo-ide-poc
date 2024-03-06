@@ -1,5 +1,8 @@
-export const previewFileType = (language: string) => {
-  const availableLanguages = new Set(["html", "js", "json"]);
-
-  return availableLanguages.has(language);
+const defaultPreviewFileTypesArray = ["html", "js", "json"];
+export const previewFileType = (
+  language: string,
+  previewFileTypesArray = defaultPreviewFileTypesArray
+) => {
+  const previewFileTypes = new Set(previewFileTypesArray);
+  return previewFileTypes.has(language);
 };

@@ -32,6 +32,7 @@ const getPreviewComponent = (previewFile?: ProjectFileType) => {
 export const RightPane = () => {
   const {
     project: { files },
+    config: { previewFileTypes },
   } = useCDOIDEContext();
   const [previewFile, setPreviewFile] = useState(
     Object.values(files).find((f) => f.name === "index.html" && !f.folderId)
@@ -42,7 +43,7 @@ export const RightPane = () => {
   ); //*/
 
   useEffect(() => {
-    if (previewFileType(activeFile?.language!)) {
+    if (previewFileType(activeFile?.language!, previewFileTypes)) {
       setPreviewFile(activeFile);
     }
   }, [activeFile]);
@@ -50,7 +51,9 @@ export const RightPane = () => {
   useEffect(() => {
     if (previewFile && !files[previewFile.id]) {
       setPreviewFile(
-        Object.values(files).find((f) => previewFileType(f.language))
+        Object.values(files).find((f) =>
+          previewFileType(f.language, previewFileTypes)
+        )
       );
     }
   }, [previewFile, files]);
@@ -70,7 +73,7 @@ export const RightPane = () => {
       >
         {Object.values(files)
           .sort()
-          .filter((f) => previewFileType(f.language))
+          .filter((f) => previewFileType(f.language, previewFileTypes))
           .map((file) => (
             <option key={file.id} value={file.id}>
               {file.name}
