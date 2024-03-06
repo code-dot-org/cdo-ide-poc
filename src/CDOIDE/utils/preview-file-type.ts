@@ -1,8 +1,8 @@
-const defaultAvailableFileTypesArray = ["html", "js", "json"];
+const defaultPreviewFileTypesArray = ["html", "js", "json"];
 export const previewFileType = (
   language: string,
-  availableFileTypesArray = defaultAvailableFileTypesArray
+  previewFileTypesArray = defaultPreviewFileTypesArray
 ) => {
-  const availableFileTypes = new Set(availableFileTypesArray);
-  return availableFileTypes.has(language);
+  const previewFileTypes = new Set(previewFileTypesArray);
+  return previewFileTypes.has(language);
 };
