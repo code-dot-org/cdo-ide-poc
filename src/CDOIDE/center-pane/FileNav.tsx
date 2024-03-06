@@ -2,13 +2,12 @@ import React from "react";
 import "./styles/file-nav.css";
 
 import { useCDOIDEContext } from "../cdo-ide-context";
+import { sortFilesByName } from "../utils";
 
 export const FileNav = () => {
   const { project, closeFile, setActiveFile } = useCDOIDEContext();
 
-  const files = Object.values(project.files)
-    .filter((f) => f.open)
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const files = sortFilesByName(project.files, { mustBeOpen: true });
 
   return (
     <div className="files-nav-bar">
