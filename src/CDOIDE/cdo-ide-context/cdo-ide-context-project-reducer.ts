@@ -1,5 +1,6 @@
 import { ProjectType, ReducerAction, PROJECT_REDUCER_ACTIONS } from "../types";
 import { findFiles, findSubFolders } from "./utils";
+import { sortFilesByName } from "../utils";
 
 type DefaultFilePayload = {
   fileId: string;
@@ -93,13 +94,48 @@ export const projectReducer = (project: ProjectType, action: ReducerAction) => {
 
     case PROJECT_REDUCER_ACTIONS.CLOSE_FILE: {
       const { fileId } = <DefaultFilePayload>action.payload;
-      return {
+
+      const file = project.files[fileId];
+
+      const newProject = {
         ...project,
         files: {
           ...project.files,
           [fileId]: { ...project.files[fileId], open: false, active: false },
         },
       };
+
+      // if the file -was- active, then we want to activate whatever file was next to it.
+      // choose the recent file before hand if possible, and otherwise after. Alphabetically sorted.
+      if (file.active) {
+        // so we look to our list of open files before we closed.
+        const oldSortedFiles = sortFilesByName(project.files, {
+          mustBeOpen: true,
+        });
+        // and find our index.
+        const fileIdx = oldSortedFiles.findIndex((f) => f.id === file.id)!;
+        // if there's a file before us, we're gtg. Use that one.
+
+        let newActiveFileId;
+        if (fileIdx > 0) {
+          newActiveFileId = oldSortedFiles[fileIdx - 1].id;
+        }
+        // otherwise, check to see if there's a file after us. And if so, use that one.
+        // remember - we're removing this file from our list, so we have one fewer item in the list.
+        // so we need to decrement by 1
+        else if (fileIdx < oldSortedFiles.length - 1) {
+          newActiveFileId = oldSortedFiles[fileIdx + 1].id;
+        }
+
+        if (newActiveFileId) {
+          newProject.files[newActiveFileId] = {
+            ...newProject.files[newActiveFileId],
+            active: true,
+          };
+        }
+      }
+
+      return newProject;
     }
 
     case PROJECT_REDUCER_ACTIONS.DELETE_FILE: {
