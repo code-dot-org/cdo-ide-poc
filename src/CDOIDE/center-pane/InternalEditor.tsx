@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
 
 import { useCDOIDEContext } from "../cdo-ide-context";
 
@@ -11,6 +11,7 @@ import { json } from "@codemirror/lang-json";
 import { LanguageSupport } from "@codemirror/language";
 
 import { editableFileType, prettify } from "../utils";
+import { EditorTheme } from "./types";
 
 const codeMirrorLangMapping: { [key: string]: LanguageSupport } = {
   html: html(),
@@ -20,6 +21,7 @@ const codeMirrorLangMapping: { [key: string]: LanguageSupport } = {
 };
 
 const Editor = () => {
+  const [theme, setTheme] = useState<EditorTheme>("light");
   const {
     project,
     saveFile,
@@ -60,6 +62,10 @@ const Editor = () => {
   return (
     <div className="editor-container">
       <button onClick={() => format()}>Format</button>
+      <select onChange={(e) => setTheme(e.target.value)}>
+        <option value="light">light theme</option>
+        <option value="dark">dark theme</option>
+      </select>
       {file && (
         <CodeMirror
           value={file.contents}
@@ -67,6 +73,7 @@ const Editor = () => {
           height="100%"
           extensions={[codeMirrorLangMapping[file.language]]}
           onChange={onChange}
+          theme={theme}
         />
       )}
     </div>
