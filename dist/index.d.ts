@@ -52,13 +52,15 @@ export declare type ConfigType = {
     instructions: string | undefined;
     leftNav: LeftNavElement[];
     EditorComponent?: () => JSX.Element;
+    editableFileTypes?: string[];
+    previewFileTypes?: string[];
 };
 
 export declare type DeleteFileFunction = (fileId: string) => void;
 
 export declare type DeleteFolderFunction = (folderId: string) => void;
 
-export declare const editableFileType: (language: string) => boolean;
+export declare const editableFileType: (language: string, availableFileTypesArray?: string[]) => boolean;
 
 export declare const findFiles: (folderId: string, files: ProjectFileType[], folders?: ProjectFolderType[]) => string[];
 
@@ -90,7 +92,7 @@ export declare type OpenFileFunction = (fileId: string) => void;
 
 export declare const prettify: (val: string, language: string) => Promise<string>;
 
-export declare const previewFileType: (language: string) => boolean;
+export declare const previewFileType: (language: string, availableFileTypesArray?: string[]) => boolean;
 
 export declare const PROJECT_REDUCER_ACTIONS: {
     NEW_FILE: string;

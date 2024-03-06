@@ -20,7 +20,11 @@ const codeMirrorLangMapping: { [key: string]: LanguageSupport } = {
 };
 
 const Editor = () => {
-  const { project, saveFile } = useCDOIDEContext();
+  const {
+    project,
+    saveFile,
+    config: { editableFileTypes },
+  } = useCDOIDEContext();
 
   const file = Object.values(project.files).filter((f) => f.active)?.[0];
 
@@ -44,7 +48,7 @@ const Editor = () => {
     return <div></div>;
   }
 
-  if (!editableFileType(file.language)) {
+  if (!editableFileType(file.language, editableFileTypes)) {
     return (
       <div>
         Can only edit html, css, or javascript files. Cannot edit{" "}

@@ -13,6 +13,8 @@ export type ConfigType = {
   instructions: string | undefined;
   leftNav: LeftNavElement[];
   EditorComponent?: () => JSX.Element;
+  editableFileTypes?: string[];
+  previewFileTypes?: string[];
 };
 
 export type ProjectFolderType = {
