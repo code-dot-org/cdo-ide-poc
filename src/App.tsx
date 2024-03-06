@@ -7,7 +7,7 @@ import { Config } from "./Config";
 import { CDOIDE } from "./CDOIDE/CDOIDE";
 import { ConfigType, ProjectType } from "./CDOIDE/types";
 //import { FakeEditor } from "./FakeEditor";
-import InternalEditor from "./CDOIDE/center-pane/InternalEditor";
+//import InternalEditor from "./CDOIDE/center-pane/InternalEditor";
 
 const instructions = `Add html pages and preview them in the right pane.
 
@@ -23,7 +23,7 @@ const defaultConfig: ConfigType = {
   showRunBar: true,
   showDebug: true,
   activeLeftNav: "Files",
-  EditorComponent: InternalEditor,
+  //EditorComponent: InternalEditor,
   // editableFileTypes: ["html"],
   // previewFileTypes: ["html"],
   leftNav: [

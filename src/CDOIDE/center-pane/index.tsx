@@ -4,8 +4,8 @@ import "./styles/center-pane.css";
 import { useCDOIDEContext } from "../cdo-ide-context";
 
 import { FileNav } from "./FileNav";
-//import InternalEditor from "./InternalEditor";
-import InternalEditor from "./DisabledEditor";
+import InternalEditor from "./InternalEditor";
+//import InternalEditor from "./DisabledEditor";
 
 export const CenterPane = () => {
   const { config } = useCDOIDEContext();
