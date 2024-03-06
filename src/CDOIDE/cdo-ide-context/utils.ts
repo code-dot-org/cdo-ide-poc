@@ -1,11 +1,13 @@
 import { useMemo } from "react";
 import {
+  ProjectType,
   ProjectFileType,
   ProjectFolderType,
   ReducerAction,
   PROJECT_REDUCER_ACTIONS,
 } from "../types";
 import {
+  ReplaceProjectFunction,
   SaveFileFunction,
   NewFileFunction,
   RenameFileFunction,
@@ -61,6 +63,12 @@ export const useProjectUtilities = (
 ) => {
   return useMemo(() => {
     const utils = {
+      replaceProject: <ReplaceProjectFunction>((project: ProjectType) => {
+        dispatch({
+          type: PROJECT_REDUCER_ACTIONS.REPLACE_PROJECT,
+          payload: { project },
+        });
+      }),
       newFile: <NewFileFunction>(({
         fileId,
         fileName,

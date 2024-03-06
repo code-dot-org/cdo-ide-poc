@@ -48,6 +48,7 @@ export type ReducerAction = {
 };
 
 export const PROJECT_REDUCER_ACTIONS = {
+  REPLACE_PROJECT: "REPLACE_PROJECT",
   NEW_FILE: "NEW_FILE",
   RENAME_FILE: "RENAME_FILE",
   SAVE_FILE: "SAVE_FILE",

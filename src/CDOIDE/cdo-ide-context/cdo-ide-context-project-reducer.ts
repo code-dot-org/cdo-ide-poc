@@ -12,6 +12,13 @@ type DefaultFolderPayload = {
 
 export const projectReducer = (project: ProjectType, action: ReducerAction) => {
   switch (action.type) {
+    case PROJECT_REDUCER_ACTIONS.REPLACE_PROJECT: {
+      const { project: newProject } = action.payload as {
+        project: ProjectType;
+      };
+
+      return newProject;
+    }
     case PROJECT_REDUCER_ACTIONS.NEW_FILE: {
       const { fileId, fileName, folderId, contents = "" } = <
         DefaultFilePayload & {
