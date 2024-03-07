@@ -15,6 +15,8 @@ export type ConfigType = {
   EditorComponent?: () => JSX.Element;
   editableFileTypes?: string[];
   previewFileTypes?: string[];
+  EmptyEditorComponent?: () => JSX.Element;
+  blankEmptyEditor?: boolean;
 };
 
 export type ProjectFolderType = {
