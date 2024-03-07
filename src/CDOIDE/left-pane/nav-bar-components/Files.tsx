@@ -3,10 +3,10 @@ import {
   useCDOIDEContext,
   getNextFileId,
   getNextFolderId,
-} from "../../cdo-ide-context";
+} from "@cdoide/cdo-ide-context";
 
-import { ProjectType } from "../../types";
-import { DEFAULT_FOLDER_ID } from "../../constants";
+import { ProjectType } from "@cdoide/types";
+import { DEFAULT_FOLDER_ID } from "@cdoide/constants";
 
 import "./styles/files.css";
 

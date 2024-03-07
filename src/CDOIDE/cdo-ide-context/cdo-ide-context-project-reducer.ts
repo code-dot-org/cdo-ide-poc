@@ -1,6 +1,10 @@
-import { ProjectType, ReducerAction, PROJECT_REDUCER_ACTIONS } from "../types";
+import {
+  ProjectType,
+  ReducerAction,
+  PROJECT_REDUCER_ACTIONS,
+} from "@cdoide/types";
 import { findFiles, findSubFolders } from "./utils";
-import { sortFilesByName } from "../utils";
+import { sortFilesByName } from "@cdoide/utils";
 
 type DefaultFilePayload = {
   fileId: string;

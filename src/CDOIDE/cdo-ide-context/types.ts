@@ -1,4 +1,4 @@
-import { ProjectType } from "../types";
+import { ProjectType } from "@cdoide/types";
 export type ReplaceProjectFunction = (project: ProjectType) => void;
 
 export type SaveFileFunction = (fileId: string, contents: string) => void;

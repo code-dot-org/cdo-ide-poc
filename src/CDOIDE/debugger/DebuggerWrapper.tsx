@@ -2,7 +2,7 @@ import React from "react";
 
 import "./styles/debugger-wrapper.css";
 
-import { useCDOIDEContext } from "../cdo-ide-context";
+import { useCDOIDEContext } from "@cdoide/cdo-ide-context";
 
 import { Debugger } from "./Debugger";
 

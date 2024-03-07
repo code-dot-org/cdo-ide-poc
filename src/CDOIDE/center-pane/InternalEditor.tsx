@@ -1,7 +1,5 @@
 import { useState, useCallback } from "react";
 
-import { useCDOIDEContext } from "../cdo-ide-context";
-
 import CodeMirror from "@uiw/react-codemirror";
 
 import { html } from "@codemirror/lang-html";
@@ -10,8 +8,9 @@ import { javascript as js } from "@codemirror/lang-javascript";
 import { json } from "@codemirror/lang-json";
 import { LanguageSupport } from "@codemirror/language";
 
-import { editableFileType, prettify } from "../utils";
-import { useEmptyEditor } from "../hooks";
+import { useCDOIDEContext } from "@cdoide/cdo-ide-context";
+import { editableFileType, prettify } from "@cdoide/utils";
+import { useEmptyEditor } from "@cdoide/hooks";
 import { EditorTheme } from "./types";
 
 const codeMirrorLangMapping: { [key: string]: LanguageSupport } = {

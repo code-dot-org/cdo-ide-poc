@@ -1,4 +1,4 @@
-import { ConfigType } from "../types";
+import { ConfigType } from "@cdoide/types";
 
 import { DefaultEmptyEditor, BlankEmptyEditor } from "../DefaultEmptyEditors";
 

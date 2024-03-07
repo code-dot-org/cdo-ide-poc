@@ -1,8 +1,8 @@
 import React from "react";
 import "./styles/file-nav.css";
 
-import { useCDOIDEContext } from "../cdo-ide-context";
-import { sortFilesByName } from "../utils";
+import { useCDOIDEContext } from "@cdoide/cdo-ide-context";
+import { sortFilesByName } from "@cdoide/utils";
 
 export const FileNav = () => {
   const { project, closeFile, setActiveFile } = useCDOIDEContext();
