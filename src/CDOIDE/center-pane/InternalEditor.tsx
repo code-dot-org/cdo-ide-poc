@@ -11,6 +11,7 @@ import { json } from "@codemirror/lang-json";
 import { LanguageSupport } from "@codemirror/language";
 
 import { editableFileType, prettify } from "../utils";
+import { useEmptyEditor } from "../hooks";
 import { EditorTheme } from "./types";
 
 const codeMirrorLangMapping: { [key: string]: LanguageSupport } = {
@@ -27,6 +28,7 @@ const Editor = () => {
     saveFile,
     config: { editableFileTypes },
   } = useCDOIDEContext();
+  const EmptyEditor = useEmptyEditor();
 
   const file = Object.values(project.files).filter((f) => f.active)?.[0];
 
@@ -47,7 +49,7 @@ const Editor = () => {
   };
 
   if (!file) {
-    return <div></div>;
+    return <EmptyEditor />;
   }
 
   if (!editableFileType(file.language, editableFileTypes)) {

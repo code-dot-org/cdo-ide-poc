@@ -42,6 +42,8 @@ const defaultConfig: ConfigType = {
   ],
   sideBar: ["fa-circle-question", "fa-folder"],
   instructions,
+  //blankEmptyEditor: true,
+  //EmptyEditorComponent: () => <div>Nothing is open.</div>,
 };
 
 const defaultProject: ProjectType = {
