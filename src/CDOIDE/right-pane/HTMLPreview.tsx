@@ -1,8 +1,8 @@
 import React, { useRef, useMemo } from "react";
 
-import { useCDOIDEContext } from "../cdo-ide-context";
-import { ProjectFileType } from "../types";
-import { DEFAULT_FOLDER_ID } from "../constants";
+import { useCDOIDEContext } from "@cdoide/cdo-ide-context";
+import { ProjectFileType } from "@cdoide/types";
+import { DEFAULT_FOLDER_ID } from "@cdoide/constants";
 
 type HTMLPreviewProps = {
   file: ProjectFileType;

@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles/center-pane.css";
 
-import { useCDOIDEContext } from "../cdo-ide-context";
+import { useCDOIDEContext } from "@cdoide/cdo-ide-context";
 
 import { FileNav } from "./FileNav";
 import InternalEditor from "./InternalEditor";

@@ -3,18 +3,18 @@ import {
   CDOIDEContextProvider,
   projectReducer,
   useProjectUtilities,
-} from "./cdo-ide-context";
+} from "@cdoide/cdo-ide-context";
 import {
   ProjectType,
   ConfigType,
   SetProjectFunction,
   SetConfigFunction,
-} from "./types";
+} from "@cdoide/types";
 
-import { LeftPane } from "./left-pane";
-import { CenterPane } from "./center-pane";
-import { RightPane } from "./right-pane";
-import { RunBar } from "./run-bar";
+import { LeftPane } from "@cdoide/left-pane";
+import { CenterPane } from "@cdoide/center-pane";
+import { RightPane } from "@cdoide/right-pane";
+import { RunBar } from "@cdoide/run-bar";
 
 import "./styles/cdo-ide.css";
 

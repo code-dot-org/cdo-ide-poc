@@ -5,7 +5,7 @@ import {
   ProjectFolderType,
   ReducerAction,
   PROJECT_REDUCER_ACTIONS,
-} from "../types";
+} from "@cdoide/types";
 import {
   ReplaceProjectFunction,
   SaveFileFunction,

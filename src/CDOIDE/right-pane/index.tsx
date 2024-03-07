@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./styles/right-pane.css";
 
-import { useCDOIDEContext } from "../cdo-ide-context";
+import { useCDOIDEContext } from "@cdoide/cdo-ide-context";
 import { HTMLPreview } from "./HTMLPreview";
 import { JSPreview } from "./JSPreview";
 import { JSONPreview } from "./JSONPreview";
 
-import { previewFileType } from "../utils";
-import { ProjectFileType } from "../types";
+import { previewFileType } from "@cdoide/utils";
+import { ProjectFileType } from "@cdoide/types";
 
 const fileTypeMap: {
   [key: string]: (args: { file: ProjectFileType }) => JSX.Element;

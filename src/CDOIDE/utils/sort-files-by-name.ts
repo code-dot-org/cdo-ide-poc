@@ -1,4 +1,4 @@
-import { ProjectType } from "../types";
+import { ProjectType } from "@cdoide/types";
 
 export const sortFilesByName = (
   files: ProjectType["files"],

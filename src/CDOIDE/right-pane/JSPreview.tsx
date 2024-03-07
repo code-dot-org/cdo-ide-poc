@@ -3,9 +3,9 @@ import Sandbox from "websandbox";
 
 import "./styles/js-preview.css";
 
-import { DebuggerWrapper } from "../debugger/DebuggerWrapper";
+import { DebuggerWrapper } from "@cdoide/debugger/DebuggerWrapper";
 
-import { ProjectFileType } from "../types";
+import { ProjectFileType } from "@cdoide/types";
 
 type JSPreviewProps = {
   file: ProjectFileType;
