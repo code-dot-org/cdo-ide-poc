@@ -57,6 +57,7 @@ const defaultConfig: ConfigType = {
 };
 
 const defaultProject: ProjectType = {
+  // folders: {},
   folders: {
     "1": { id: "1", name: "foo", parentId: "0" },
     "2": { id: "2", name: "bar", parentId: "1" },
@@ -65,6 +66,24 @@ const defaultProject: ProjectType = {
     "5": { id: "5", name: "f2", parentId: "1" },
     "6": { id: "6", name: "b1", parentId: "2" },
   },
+  /*files: {
+    "1": {
+      id: "1",
+      name: "index.html",
+      language: "html",
+      contents: `<!DOCTYPE html><html>
+    <link rel="stylesheet" href="styles.css"/>
+    <body>
+      Content goes here!
+      <div class="foo">Foo class!</div>
+    </body>
+  </html>
+  `,
+      open: true,
+      active: true,
+      folderId: "0",
+    },
+  },*/
   files: {
     "1": {
       id: "1",
@@ -125,6 +144,14 @@ const defaultProject: ProjectType = {
         "<!DOCTYPE html><html><body>This is a sub folder html page</body></html>",
       open: false,
       folderId: "1",
+    },
+    "7": {
+      id: "7",
+      name: "some-javascript.js",
+      language: "js",
+      contents: "const a = 5; const b = 7; console.log(a + b);",
+      open: false,
+      folderId: "0",
     },
   },
 };

@@ -20,7 +20,7 @@ export const HTMLPreview = ({ file }: HTMLPreviewProps) => {
     }
 
     const contents = file.contents.replace(
-      new RegExp('<link rel="stylesheet" href="([^"]+)"/>', "g"),
+      new RegExp('<link rel="stylesheet" href="([^"]+)"\\s*/>', "g"),
       (_, styleURI) => {
         // this is tedious. Break apart the style URI and look up all folders to get the final folder ID.
         // THEN look for a file with the same name and folder and that's what we need.
