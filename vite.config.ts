@@ -42,13 +42,7 @@ export default defineConfig({
     },
 
     rollupOptions: {
-      external: [
-        "react",
-        "react-dom",
-        "@codemirror/lang-css",
-        "@codemirror/lang-html",
-        "@codemirror/lang-json",
-      ],
+      external: ["react", "react-dom"],
       output: {
         globals: {
           react: "React",
