@@ -7,15 +7,17 @@ import {
 
 import { ProjectType } from "@cdoide/types";
 import { DEFAULT_FOLDER_ID } from "@cdoide/constants";
+import { findFolder, getErrorMessage } from "@cdoide/utils";
 
 import "./styles/files.css";
 
-type FoldersProps = {
+type FilesComponentProps = {
   newFolderPrompt: (parentId?: string) => void;
   folders: ProjectType["folders"];
   parentId?: string;
   files: ProjectType["files"];
   newFilePrompt: (folderId?: string) => void;
+  moveFilePrompt: (fileId: string) => void;
   renameFilePrompt: (fileId: string) => void;
   renameFolderPrompt: (folderId: string) => void;
 };
@@ -26,9 +28,10 @@ const FilesBrowser = ({
   files,
   newFolderPrompt,
   newFilePrompt,
+  moveFilePrompt,
   renameFilePrompt,
   renameFolderPrompt,
-}: FoldersProps) => {
+}: FilesComponentProps) => {
   const {
     openFile,
     deleteFile,
@@ -85,6 +88,7 @@ const FilesBrowser = ({
                     parentId={f.id}
                     files={files}
                     newFilePrompt={newFilePrompt}
+                    moveFilePrompt={moveFilePrompt}
                     renameFilePrompt={renameFilePrompt}
                     renameFolderPrompt={renameFolderPrompt}
                   />
@@ -101,6 +105,9 @@ const FilesBrowser = ({
             <span className="label">
               <span onClick={() => openFile(f.id)}>{f.name}</span>
               <span className="button-bar">
+                <span onClick={() => moveFilePrompt(f.id)}>
+                  <i className="fa-solid fa-arrow-right" />
+                </span>
                 <span onClick={() => renameFilePrompt(f.id)}>
                   <i className="fa-solid fa-pencil" />
                 </span>
@@ -120,11 +127,13 @@ export const Files = () => {
     project,
     newFile,
     renameFile,
+    moveFile,
+
     renameFolder,
     newFolder,
   } = useCDOIDEContext();
 
-  const newFolderPrompt: FoldersProps["newFolderPrompt"] = (
+  const newFolderPrompt: FilesComponentProps["newFolderPrompt"] = (
     parentId = DEFAULT_FOLDER_ID
   ) => {
     const folderId = getNextFolderId(Object.values(project.folders));
@@ -134,7 +143,7 @@ export const Files = () => {
       return;
     }
 
-    const existingFolder = Object.values(project.folders).find(
+    const existingFolder = Object.values(project.folders).some(
       (f) => f.name === folderName && f.parentId === parentId
     );
     if (existingFolder) {
@@ -145,7 +154,7 @@ export const Files = () => {
     newFolder({ parentId, folderName, folderId });
   };
 
-  const newFilePrompt: FoldersProps["newFilePrompt"] = (
+  const newFilePrompt: FilesComponentProps["newFilePrompt"] = (
     folderId = DEFAULT_FOLDER_ID
   ) => {
     const fileName = window
@@ -155,7 +164,7 @@ export const Files = () => {
       return;
     }
 
-    const existingFile = Object.values(project.files).find(
+    const existingFile = Object.values(project.files).some(
       (f) => f.name === fileName && f.folderId === folderId
     );
     if (existingFile) {
@@ -177,14 +186,42 @@ export const Files = () => {
     });
   };
 
-  const renameFilePrompt: FoldersProps["renameFilePrompt"] = (fileId) => {
+  const moveFilePrompt: FilesComponentProps["moveFilePrompt"] = (fileId) => {
+    const file = project.files[fileId];
+
+    const destinationFolder =
+      window.prompt("Please enter your destination folder") ?? "";
+
+    try {
+      const folderId = findFolder(destinationFolder.split("/"), {
+        folders: Object.values(project.folders),
+        required: true,
+      });
+
+      const existingFile = Object.values(project.files).some(
+        (f) => f.name === file.name && f.folderId === folderId
+      );
+      if (existingFile) {
+        alert("File already exists");
+        return;
+      }
+
+      moveFile(fileId, folderId);
+    } catch (e) {
+      window.alert(getErrorMessage(e));
+    }
+  };
+
+  const renameFilePrompt: FilesComponentProps["renameFilePrompt"] = (
+    fileId
+  ) => {
     const file = project.files[fileId];
     const newName = window.prompt("Rename file", file.name);
     if (newName === null || newName === file.name) {
       return;
     }
 
-    const existingFile = Object.values(project.files).find(
+    const existingFile = Object.values(project.files).some(
       (f) => f.name === newName && f.folderId === file.folderId
     );
     if (existingFile) {
@@ -195,14 +232,16 @@ export const Files = () => {
     renameFile(fileId, newName);
   };
 
-  const renameFolderPrompt: FoldersProps["renameFolderPrompt"] = (folderId) => {
+  const renameFolderPrompt: FilesComponentProps["renameFolderPrompt"] = (
+    folderId
+  ) => {
     const folder = project.folders[folderId];
     const newName = window.prompt("Rename folder", folder.name);
     if (newName === null || newName === folder.name) {
       return;
     }
 
-    const existingFolder = Object.values(project.folders).find(
+    const existingFolder = Object.values(project.folders).some(
       (f) => f.name === newName && f.parentId === folder.parentId
     );
     if (existingFolder) {
@@ -230,6 +269,7 @@ export const Files = () => {
           newFolderPrompt={newFolderPrompt}
           files={project.files}
           newFilePrompt={newFilePrompt}
+          moveFilePrompt={moveFilePrompt}
           renameFilePrompt={renameFilePrompt}
           renameFolderPrompt={renameFolderPrompt}
         />

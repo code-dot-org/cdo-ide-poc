@@ -1,10 +1,8 @@
-import {
-  ProjectType,
-  ReducerAction,
-  PROJECT_REDUCER_ACTIONS,
-} from "@cdoide/types";
-import { findFiles, findSubFolders } from "./utils";
+import { ProjectType, ReducerAction } from "@cdoide/types";
 import { sortFilesByName } from "@cdoide/utils";
+
+import { findFiles, findSubFolders } from "./utils";
+import { PROJECT_REDUCER_ACTIONS } from "./constants";
 
 type DefaultFilePayload = {
   fileId: string;
@@ -162,6 +160,19 @@ export const projectReducer = (project: ProjectType, action: ReducerAction) => {
       delete newProject.files[fileId];
 
       return newProject;
+    }
+
+    case PROJECT_REDUCER_ACTIONS.MOVE_FILE: {
+      const { fileId, folderId } = <DefaultFilePayload & { folderId: string }>(
+        action.payload
+      );
+      return {
+        ...project,
+        files: {
+          ...project.files,
+          [fileId]: { ...project.files[fileId], folderId },
+        },
+      };
     }
 
     case PROJECT_REDUCER_ACTIONS.NEW_FOLDER: {

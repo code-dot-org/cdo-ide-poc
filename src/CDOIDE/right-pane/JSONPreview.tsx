@@ -3,19 +3,10 @@ import React from "react";
 import "./styles/json-preview.css";
 
 import { ProjectFileType } from "@cdoide/types";
+import { getErrorMessage } from "@cdoide/utils";
 
 type JSONPreviewProps = {
   file: ProjectFileType;
-};
-
-const getErrorMessage = (e: unknown): string => {
-  if (typeof e === "string") {
-    return e;
-  } else if (e instanceof Error) {
-    return e.message;
-  } else {
-    return "";
-  }
 };
 
 export const JSONPreview = ({ file }: JSONPreviewProps) => {

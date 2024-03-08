@@ -2,7 +2,7 @@ import React, { useRef, useMemo } from "react";
 
 import { useCDOIDEContext } from "@cdoide/cdo-ide-context";
 import { ProjectFileType } from "@cdoide/types";
-import { DEFAULT_FOLDER_ID } from "@cdoide/constants";
+import { findFolder } from "@cdoide/utils";
 
 type HTMLPreviewProps = {
   file: ProjectFileType;
@@ -28,16 +28,9 @@ export const HTMLPreview = ({ file }: HTMLPreviewProps) => {
         const styleFolders = styleURI.split("/");
         const styleName = styleFolders.pop();
 
-        const folderId = styleFolders.reduce(
-          (parentId: string, name: string) => {
-            const folder = Object.values(folders).find(
-              (f) => f.name === name && f.parentId === parentId
-            ) || { id: DEFAULT_FOLDER_ID };
-
-            return folder.id;
-          },
-          DEFAULT_FOLDER_ID
-        );
+        const folderId = findFolder(styleFolders, {
+          folders: Object.values(folders),
+        });
 
         const styleFile = Object.values(files).find(
           (f) => f.name === styleName && f.folderId === folderId
