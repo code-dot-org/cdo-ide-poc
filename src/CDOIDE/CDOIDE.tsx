@@ -70,6 +70,7 @@ export const CDOIDE = ({
   // regardless, we always re-enable updates after we're done.
   // There's only one time when we don't want to call the callback, and that's when
   // we're replacing the project itself in the next effect
+
   useEffect(() => {
     if (shouldNotifyProjectUpdate.current) {
       setProject(internalProject);
@@ -78,15 +79,16 @@ export const CDOIDE = ({
   }, [internalProject]);
 
   // okay, so if we replace the project itself, we need to confirm that it actually changed
-  // so only do anything if the project is not the internalProject.
-  // and do NOT fire off the setProject callback on this action and this action only. So we disable
-  // updates. We'll re-enable them when the internalProject effect fires up above.
+  // And we can't do it by checking against the internalProject here, oh no, because that would
+  // require internalProject to be a dependency on this effect. Instead, we hand through our place
+  // to store whether we should fire off the next update. Internally, the reducer will set the flag
+  // to true if we're ACTUALLY replacing the project, which will then make it all work and sync up.
+  //
+  // Yes, this is a little crazy. Yes, I think this should be refactored out into a wrapper that
+  // explicitly calls setProject only on appropriate actions. Yes, I'll look into it.
   useEffect(() => {
-    if (project !== internalProject) {
-      projectUtilities.replaceProject(project);
-      shouldNotifyProjectUpdate.current = false;
-    }
-  }, [project, internalProject]);
+    projectUtilities.replaceProject(project, shouldNotifyProjectUpdate);
+  }, [project, projectUtilities.replaceProject]);
 
   const outerGridRows = ["auto"];
   paneHeights.forEach((pair) => {
