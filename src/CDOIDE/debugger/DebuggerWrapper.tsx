@@ -28,7 +28,7 @@ export const DebuggerWrapper = ({
       }}
     >
       <div className="debugger-wrapper-child">{children}</div>
-      {config.showDebug && <Debugger output={debuggerOutput} />}
+      <Debugger output={debuggerOutput} />
     </div>
   );
 };

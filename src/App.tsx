@@ -126,6 +126,14 @@ const defaultProject: ProjectType = {
       open: false,
       folderId: "1",
     },
+    "7": {
+      id: "7",
+      name: "some-javascript.js",
+      language: "js",
+      contents: "const a = 5; const b = 7; console.log(a + b);",
+      open: false,
+      folderId: "0",
+    },
   },
 };
 

@@ -30,6 +30,7 @@ declare type CDOIDEContextType = {
     deleteFile: DeleteFileFunction;
     newFile: NewFileFunction;
     renameFile: RenameFileFunction;
+    moveFile: MoveFileFunction;
     renameFolder: RenameFolderFunction;
 };
 
@@ -40,31 +41,60 @@ declare type CDOIDEProps = {
     setConfig: SetConfigFunction;
 };
 
-export declare type CloseFileFunction = (fileId: string) => void;
+export declare type CloseFileFunction = (fileId: FileId) => void;
 
 export declare type ConfigType = {
-    showSideBar: boolean;
-    showPreview: boolean;
-    showRunBar: boolean;
-    showDebug: boolean;
+    showLeftNav?: boolean;
+    showEditor?: boolean;
+    showPreview?: boolean;
+    showSideBar?: boolean;
+    showRunBar?: boolean;
+    showDebug?: boolean;
     activeLeftNav: string;
     sideBar: string[];
     instructions: string | undefined;
     leftNav: LeftNavElement[];
-    EditorComponent?: () => JSX.Element;
+    EditorComponent?: EditorComponent;
     editableFileTypes?: string[];
     previewFileTypes?: string[];
+    EmptyEditorComponent?: EmptyEditorComponent;
+    blankEmptyEditor?: boolean;
+    PreviewComponents?: {
+        [key: string]: PreviewComponent;
+    };
 };
 
-export declare type DeleteFileFunction = (fileId: string) => void;
+export declare type DeleteFileFunction = (fileId: FileId) => void;
 
-export declare type DeleteFolderFunction = (folderId: string) => void;
+export declare type DeleteFolderFunction = (folderId: FolderId) => void;
 
-export declare const editableFileType: (language: string, availableFileTypesArray?: string[]) => boolean;
+export declare const editableFileType: (language: string, editableFileTypesArray?: string[]) => boolean;
+
+export declare type EditorComponent = () => JSX.Element;
+
+export declare type EmptyEditorComponent = () => JSX.Element;
+
+export declare type FileId = string;
 
 export declare const findFiles: (folderId: string, files: ProjectFileType[], folders?: ProjectFolderType[]) => string[];
 
+export declare const findFolder: (folderLineage: string[] | undefined, options: {
+    folders: ProjectFolderType[];
+    required?: boolean;
+}) => string;
+
 export declare const findSubFolders: (parentId: string, folders: ProjectFolderType[]) => string[];
+
+export declare type FolderId = string;
+
+export declare const getEmptyEditor: (config: ConfigType) => EmptyEditorComponent;
+
+export declare const getEmptyProject: () => {
+    files: {};
+    folders: {};
+};
+
+export declare const getErrorMessage: (e: unknown) => string;
 
 export declare const getNextFileId: (files: ProjectFileType[]) => string;
 
@@ -75,41 +105,33 @@ export declare type LeftNavElement = {
     component: string;
 };
 
+export declare type MoveFileFunction = (fileId: FileId, folderId: FolderId) => void;
+
 export declare type NewFileFunction = (arg: {
-    fileId: string;
+    fileId: FileId;
     fileName: string;
-    folderId?: string;
+    folderId?: FolderId;
     contents?: string;
 }) => void;
 
 export declare type NewFolderFunction = (arg: {
-    folderId: string;
+    folderId: FolderId;
     folderName: string;
-    parentId?: string;
+    parentId?: FolderId;
 }) => void;
 
-export declare type OpenFileFunction = (fileId: string) => void;
+export declare type OpenFileFunction = (fileId: FileId) => void;
 
 export declare const prettify: (val: string, language: string) => Promise<string>;
 
-export declare const previewFileType: (language: string, availableFileTypesArray?: string[]) => boolean;
+export declare type PreviewComponent = (args: {
+    file: ProjectFileType;
+}) => JSX.Element;
 
-export declare const PROJECT_REDUCER_ACTIONS: {
-    NEW_FILE: string;
-    RENAME_FILE: string;
-    SAVE_FILE: string;
-    OPEN_FILE: string;
-    ACTIVATE_FILE: string;
-    CLOSE_FILE: string;
-    DELETE_FILE: string;
-    NEW_FOLDER: string;
-    TOGGLE_OPEN_FOLDER: string;
-    DELETE_FOLDER: string;
-    RENAME_FOLDER: string;
-};
+export declare const previewFileType: (language: string, previewFileTypesArray?: string[]) => boolean;
 
 export declare type ProjectFileType = {
-    id: string;
+    id: FileId;
     name: string;
     language: string;
     contents: string;
@@ -119,7 +141,7 @@ export declare type ProjectFileType = {
 };
 
 export declare type ProjectFolderType = {
-    id: string;
+    id: FolderId;
     name: string;
     parentId: string;
     open?: boolean;
@@ -137,23 +159,30 @@ export declare type ReducerAction = {
     payload: unknown;
 };
 
-export declare type RenameFileFunction = (fileId: string, newName: string) => void;
+export declare type RenameFileFunction = (fileId: FileId, newName: string) => void;
 
 export declare type RenameFolderFunction = (folderId: string, newName: string) => void;
 
-export declare type SaveFileFunction = (fileId: string, contents: string) => void;
+export declare type ReplaceProjectFunction = (project: ProjectType) => void;
 
-export declare type SetActiveFileFunction = (fileId: string) => void;
+export declare type SaveFileFunction = (fileId: FileId, contents: string) => void;
+
+export declare type SetActiveFileFunction = (fileId: FileId) => void;
 
 export declare type SetConfigFunction = (project: ConfigType) => void;
 
 export declare type SetProjectFunction = (project: ProjectType) => void;
 
-export declare type ToggleOpenFolderFunction = (folderId: string) => void;
+export declare const sortFilesByName: (files: ProjectType["files"], options?: {
+    mustBeOpen: boolean;
+}) => ProjectFileType[];
+
+export declare type ToggleOpenFolderFunction = (folderId: FolderId) => void;
 
 export declare const useCDOIDEContext: () => CDOIDEContextType;
 
 export declare const useProjectUtilities: (dispatch: React.Dispatch<ReducerAction>) => {
+    replaceProject: ReplaceProjectFunction;
     newFile: NewFileFunction;
     renameFile: RenameFileFunction;
     saveFile: SaveFileFunction;
@@ -161,6 +190,7 @@ export declare const useProjectUtilities: (dispatch: React.Dispatch<ReducerActio
     closeFile: CloseFileFunction;
     deleteFile: DeleteFileFunction;
     setActiveFile: SetActiveFileFunction;
+    moveFile: MoveFileFunction;
     newFolder: NewFolderFunction;
     renameFolder: RenameFolderFunction;
     toggleOpenFolder: ToggleOpenFolderFunction;
