@@ -3,6 +3,9 @@ export type LeftNavElement = {
   component: string;
 };
 
+export type FileId = string;
+export type FolderId = string;
+
 export type ConfigType = {
   showSideBar: boolean;
   showPreview: boolean;
@@ -20,14 +23,14 @@ export type ConfigType = {
 };
 
 export type ProjectFolderType = {
-  id: string;
+  id: FolderId;
   name: string;
   parentId: string;
   open?: boolean;
 };
 
 export type ProjectFileType = {
-  id: string;
+  id: FileId;
   name: string;
   language: string;
   contents: string;

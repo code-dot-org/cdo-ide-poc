@@ -1,15 +1,15 @@
-import { ProjectType, ReducerAction } from "@cdoide/types";
+import { ProjectType, ReducerAction, FileId, FolderId } from "@cdoide/types";
 import { sortFilesByName } from "@cdoide/utils";
 
 import { findFiles, findSubFolders } from "./utils";
 import { PROJECT_REDUCER_ACTIONS } from "./constants";
 
 type DefaultFilePayload = {
-  fileId: string;
+  fileId: FileId;
 };
 
 type DefaultFolderPayload = {
-  folderId: string;
+  folderId: FolderId;
 };
 
 export const projectReducer = (project: ProjectType, action: ReducerAction) => {
@@ -26,7 +26,7 @@ export const projectReducer = (project: ProjectType, action: ReducerAction) => {
         DefaultFilePayload & {
           fileName: string;
           contents?: string;
-          folderId: string;
+          folderId: FolderId;
         }
       >action.payload;
 
@@ -163,9 +163,9 @@ export const projectReducer = (project: ProjectType, action: ReducerAction) => {
     }
 
     case PROJECT_REDUCER_ACTIONS.MOVE_FILE: {
-      const { fileId, folderId } = <DefaultFilePayload & { folderId: string }>(
-        action.payload
-      );
+      const { fileId, folderId } = <
+        DefaultFilePayload & { folderId: FolderId }
+      >action.payload;
       return {
         ...project,
         files: {
