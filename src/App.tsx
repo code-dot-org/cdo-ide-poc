@@ -4,8 +4,9 @@ import "./styles/App.css";
 
 import { Config } from "./Config";
 
-import { CDOIDE } from "./CDOIDE/CDOIDE";
-import { ConfigType, ProjectType } from "./CDOIDE/types";
+import { CDOIDE } from "@cdoide/CDOIDE";
+import { ConfigType, ProjectType } from "@cdoide/types";
+import { getEmptyProject } from "@cdoide/utils";
 //import { FakeEditor } from "./FakeEditor";
 //import InternalEditor from "./CDOIDE/center-pane/InternalEditor";
 
@@ -120,7 +121,7 @@ const defaultProject: ProjectType = {
 };
 
 const App = () => {
-  const [project, setProject] = useState<ProjectType>(defaultProject);
+  const [project, setProject] = useState<ProjectType>(getEmptyProject());
   const [config, setConfig] = useState<ConfigType>(defaultConfig);
   const [showConfig, setShowConfig] = useState<"project" | "config" | "">("");
 
