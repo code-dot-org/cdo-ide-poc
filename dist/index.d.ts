@@ -72,6 +72,8 @@ export declare const editableFileType: (language: string, editableFileTypesArray
 
 export declare type EditorComponent = () => JSX.Element;
 
+export declare type EditorTheme = "light" | "dark";
+
 export declare type EmptyEditorComponent = () => JSX.Element;
 
 export declare type FileId = string;

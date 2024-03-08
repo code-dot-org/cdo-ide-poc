@@ -58,3 +58,5 @@ export type ReducerAction = {
   type: string;
   payload: unknown;
 };
+
+export type EditorTheme = "light" | "dark";

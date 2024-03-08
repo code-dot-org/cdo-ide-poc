@@ -11,7 +11,7 @@ import { LanguageSupport } from "@codemirror/language";
 import { useCDOIDEContext } from "@cdoide/cdo-ide-context";
 import { editableFileType, prettify } from "@cdoide/utils";
 import { useEmptyEditor } from "@cdoide/hooks";
-import { EditorTheme } from "./types";
+import { EditorTheme } from "@cdoide/types";
 
 const codeMirrorLangMapping: { [key: string]: LanguageSupport } = {
   html: html(),
