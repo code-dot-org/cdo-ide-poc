@@ -7,10 +7,12 @@ export type FileId = string;
 export type FolderId = string;
 
 export type ConfigType = {
-  showSideBar: boolean;
-  showPreview: boolean;
-  showRunBar: boolean;
-  showDebug: boolean;
+  showLeftNav?: boolean;
+  showEditor?: boolean;
+  showPreview?: boolean;
+  showSideBar?: boolean;
+  showRunBar?: boolean;
+  showDebug?: boolean;
   activeLeftNav: string;
   sideBar: string[];
   instructions: string | undefined;
