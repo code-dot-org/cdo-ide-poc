@@ -45,6 +45,8 @@ const defaultConfig: ConfigType = {
   ],
   sideBar: ["fa-circle-question", "fa-folder"],
   instructions,
+  //editableFileTypes: ["html", "json", "js", "css"],
+  //previewFileTypes: ["json", "html", "js"],
   /* PreviewComponents: {
     html: () => <div>I am previewing HTML</div>,
     js: () => <div>I am previewing JavaSript</div>,

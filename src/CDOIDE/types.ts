@@ -21,7 +21,7 @@ export type ConfigType = {
   sideBar: string[];
   instructions: string | undefined;
   leftNav: LeftNavElement[];
-  EditorComponent?: PreviewComponent;
+  EditorComponent?: EditorComponent;
   editableFileTypes?: string[];
   previewFileTypes?: string[];
   EmptyEditorComponent?: EmptyEditorComponent;
