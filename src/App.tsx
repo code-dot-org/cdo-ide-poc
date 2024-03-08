@@ -6,7 +6,7 @@ import { Config } from "./Config";
 
 import { CDOIDE } from "@cdoide/CDOIDE";
 import { ConfigType, ProjectType } from "@cdoide/types";
-import { getEmptyProject } from "@cdoide/utils";
+
 //import { FakeEditor } from "./FakeEditor";
 //import InternalEditor from "./CDOIDE/center-pane/InternalEditor";
 
@@ -19,10 +19,12 @@ Add javascript files (ending in .js) and execute javascript code in the right pa
 Use the file browser to add/rename/delete files, or to add/rename/delete folders (including hierarchically!)`;
 
 const defaultConfig: ConfigType = {
-  showSideBar: true,
-  showPreview: true,
-  showRunBar: true,
-  showDebug: true,
+  //showSideBar: true,
+  // showLeftNav: false,
+  // showEditor: false,
+  // showPreview: false,
+  // showRunBar: true,
+  // showDebug: true,
   activeLeftNav: "Files",
   //EditorComponent: InternalEditor,
   // editableFileTypes: ["html"],

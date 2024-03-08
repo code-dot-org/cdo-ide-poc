@@ -25,6 +25,34 @@ type CDOIDEProps = {
   setConfig: SetConfigFunction;
 };
 
+type PaneKey = {
+  key: keyof typeof configVisDefaults;
+};
+
+const configVisDefaults = {
+  showPreview: true,
+  showEditor: true,
+  showLeftNav: true,
+  showRunBar: false,
+};
+
+const getConfigVisVal = (
+  key: keyof typeof configVisDefaults,
+  config: ConfigType
+) => {
+  return config[key] ?? configVisDefaults[key] ?? false;
+};
+
+const paneWidths: (PaneKey & { width: string })[] = [
+  { key: "showLeftNav", width: "1fr" },
+  { key: "showPreview", width: "2fr" },
+  { key: "showEditor", width: "2fr" },
+];
+
+const paneHeights: (PaneKey & { height: string })[] = [
+  { key: "showRunBar", height: "40px" },
+];
+
 export const CDOIDE = ({
   project,
   config,
@@ -60,6 +88,19 @@ export const CDOIDE = ({
     }
   }, [project, internalProject]);
 
+  const outerGridRows = ["auto"];
+  paneHeights.forEach((pair) => {
+    if (getConfigVisVal(pair.key, config)) {
+      outerGridRows.push(pair.height);
+    }
+  });
+
+  const innerGridCols: string[] = [];
+  paneWidths.forEach((pair) => {
+    if (getConfigVisVal(pair.key, config)) {
+      innerGridCols.push(pair.width);
+    }
+  });
   return (
     <CDOIDEContextProvider
       value={{
@@ -72,23 +113,27 @@ export const CDOIDE = ({
     >
       <div
         className="cdo-ide-outer"
-        style={{ gridTemplateRows: config.showRunBar ? "auto 40px" : "auto" }}
+        style={{ gridTemplateRows: outerGridRows.join(" ") }}
       >
         <div
           className="cdo-ide-inner"
           style={{
-            gridTemplateColumns: config.showPreview ? "1fr 2fr 2fr" : "1fr 2fr",
+            gridTemplateColumns: innerGridCols.join(" "),
           }}
         >
-          <div className="cdo-ide-area">
-            <LeftPane />
-          </div>
-          <div className="cdo-ide-area">
-            <CenterPane />
-          </div>
-          {config.showPreview && <RightPane />}
+          {getConfigVisVal("showLeftNav", config) && (
+            <div className="cdo-ide-area">
+              <LeftPane />
+            </div>
+          )}
+          {getConfigVisVal("showEditor", config) && (
+            <div className="cdo-ide-area">
+              <CenterPane />
+            </div>
+          )}
+          {getConfigVisVal("showPreview", config) && <RightPane />}
         </div>
-        {config.showRunBar && <RunBar />}
+        {getConfigVisVal("showRunBar", config) && <RunBar />}
       </div>
     </CDOIDEContextProvider>
   );
