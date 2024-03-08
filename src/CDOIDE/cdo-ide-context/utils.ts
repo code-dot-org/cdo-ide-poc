@@ -64,10 +64,13 @@ export const useProjectUtilities = (
 ) => {
   return useMemo(() => {
     const utils = {
-      replaceProject: <ReplaceProjectFunction>((project: ProjectType) => {
+      replaceProject: <ReplaceProjectFunction>((
+        project: ProjectType,
+        shouldNotifyProjectUpdate: { current: boolean }
+      ) => {
         dispatch({
           type: PROJECT_REDUCER_ACTIONS.REPLACE_PROJECT,
-          payload: { project },
+          payload: { project, shouldNotifyProjectUpdate },
         });
       }),
       newFile: <NewFileFunction>(({

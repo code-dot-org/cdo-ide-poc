@@ -15,9 +15,17 @@ type DefaultFolderPayload = {
 export const projectReducer = (project: ProjectType, action: ReducerAction) => {
   switch (action.type) {
     case PROJECT_REDUCER_ACTIONS.REPLACE_PROJECT: {
-      const { project: newProject } = action.payload as {
+      const {
+        project: newProject,
+        shouldNotifyProjectUpdate,
+      } = action.payload as {
         project: ProjectType;
+        shouldNotifyProjectUpdate: { current: boolean };
       };
+
+      if (project !== newProject) {
+        shouldNotifyProjectUpdate.current = false;
+      }
 
       return newProject;
     }
