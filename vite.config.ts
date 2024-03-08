@@ -47,7 +47,6 @@ export default defineConfig({
         "react-dom",
         "@codemirror/lang-css",
         "@codemirror/lang-html",
-        "@codemirror/lang-javascript",
         "@codemirror/lang-json",
       ],
       output: {
