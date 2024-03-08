@@ -7,7 +7,7 @@ import { JSPreview } from "./JSPreview";
 import { JSONPreview } from "./JSONPreview";
 
 import { previewFileType } from "@cdoide/utils";
-import { ProjectFileType } from "@cdoide/types";
+import { ProjectFileType, ConfigType } from "@cdoide/types";
 
 const fileTypeMap: {
   [key: string]: (args: { file: ProjectFileType }) => JSX.Element;
@@ -17,9 +17,14 @@ const fileTypeMap: {
   json: JSONPreview,
 };
 
-const getPreviewComponent = (previewFile?: ProjectFileType) => {
+const getPreviewComponent = (
+  previewFile: ProjectFileType | undefined,
+  previewComponents: ConfigType["PreviewComponents"] = {}
+) => {
   if (!previewFile) {
     return () => "";
+  } else if (previewComponents[previewFile?.language!]) {
+    return previewComponents[previewFile?.language!];
   } else if (fileTypeMap[previewFile?.language!]) {
     return fileTypeMap[previewFile?.language!];
   } else {
@@ -32,7 +37,7 @@ const getPreviewComponent = (previewFile?: ProjectFileType) => {
 export const RightPane = () => {
   const {
     project: { files },
-    config: { previewFileTypes },
+    config: { previewFileTypes, PreviewComponents },
   } = useCDOIDEContext();
   const [previewFile, setPreviewFile] = useState(
     Object.values(files).find((f) => f.name === "index.html" && !f.folderId)
@@ -58,7 +63,7 @@ export const RightPane = () => {
     }
   }, [previewFile, files]);
 
-  const PreviewComponent = getPreviewComponent(previewFile);
+  const PreviewComponent = getPreviewComponent(previewFile, PreviewComponents);
 
   return (
     <div className="right-pane">

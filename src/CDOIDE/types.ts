@@ -22,6 +22,7 @@ export type ConfigType = {
   previewFileTypes?: string[];
   EmptyEditorComponent?: () => JSX.Element;
   blankEmptyEditor?: boolean;
+  PreviewComponents?: { [key: string]: () => JSX.Element };
 };
 
 export type ProjectFolderType = {

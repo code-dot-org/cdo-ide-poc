@@ -45,6 +45,11 @@ const defaultConfig: ConfigType = {
   ],
   sideBar: ["fa-circle-question", "fa-folder"],
   instructions,
+  /* PreviewComponents: {
+    html: () => <div>I am previewing HTML</div>,
+    js: () => <div>I am previewing JavaSript</div>,
+    json: () => <div>I am previewing JSON</div>,
+  }, */
   //blankEmptyEditor: true,
   //EmptyEditorComponent: () => <div>Nothing is open.</div>,
 };
