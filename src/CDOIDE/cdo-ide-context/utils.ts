@@ -4,7 +4,6 @@ import {
   ProjectFileType,
   ProjectFolderType,
   ReducerAction,
-  PROJECT_REDUCER_ACTIONS,
 } from "@cdoide/types";
 import {
   ReplaceProjectFunction,
@@ -15,11 +14,13 @@ import {
   CloseFileFunction,
   DeleteFileFunction,
   SetActiveFileFunction,
+  MoveFileFunction,
   NewFolderFunction,
   RenameFolderFunction,
   ToggleOpenFolderFunction,
   DeleteFolderFunction,
 } from "./types";
+import { PROJECT_REDUCER_ACTIONS } from "./constants";
 
 import { DEFAULT_FOLDER_ID } from "../constants";
 
@@ -120,6 +121,12 @@ export const useProjectUtilities = (
         dispatch({
           type: PROJECT_REDUCER_ACTIONS.ACTIVATE_FILE,
           payload: { fileId },
+        });
+      }),
+      moveFile: <MoveFileFunction>((fileId, folderId) => {
+        dispatch({
+          type: PROJECT_REDUCER_ACTIONS.MOVE_FILE,
+          payload: { fileId, folderId },
         });
       }),
 

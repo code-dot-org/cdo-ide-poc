@@ -11,6 +11,7 @@ import {
   DeleteFileFunction,
   NewFileFunction,
   RenameFileFunction,
+  MoveFileFunction,
   RenameFolderFunction,
 } from "./types";
 
@@ -36,6 +37,7 @@ type CDOIDEContextType = {
   deleteFile: DeleteFileFunction;
   newFile: NewFileFunction;
   renameFile: RenameFileFunction;
+  moveFile: MoveFileFunction;
   renameFolder: RenameFolderFunction;
 };
 

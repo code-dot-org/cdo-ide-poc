@@ -22,3 +22,4 @@ export type NewFileFunction = (arg: {
 }) => void;
 export type RenameFileFunction = (fileId: string, newName: string) => void;
 export type RenameFolderFunction = (folderId: string, newName: string) => void;
+export type MoveFileFunction = (fileId: string, folderId: string) => void;

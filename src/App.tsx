@@ -121,7 +121,7 @@ const defaultProject: ProjectType = {
 };
 
 const App = () => {
-  const [project, setProject] = useState<ProjectType>(getEmptyProject());
+  const [project, setProject] = useState<ProjectType>(defaultProject);
   const [config, setConfig] = useState<ConfigType>(defaultConfig);
   const [showConfig, setShowConfig] = useState<"project" | "config" | "">("");
 
