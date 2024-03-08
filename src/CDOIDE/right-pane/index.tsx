@@ -7,10 +7,10 @@ import { JSPreview } from "./JSPreview";
 import { JSONPreview } from "./JSONPreview";
 
 import { previewFileType } from "@cdoide/utils";
-import { ProjectFileType, ConfigType } from "@cdoide/types";
+import { ProjectFileType, ConfigType, PreviewComponent } from "@cdoide/types";
 
 const fileTypeMap: {
-  [key: string]: (args: { file: ProjectFileType }) => JSX.Element;
+  [key: string]: PreviewComponent;
 } = {
   html: HTMLPreview,
   js: JSPreview,
