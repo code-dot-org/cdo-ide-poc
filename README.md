@@ -4,7 +4,9 @@ This is an extremely early POC. There is a lot of iteration to do.
 
 ## Getting started.
 
-Right now this code is hanging out in a separate repo. We'll probably merge it back into the main cdo repo at some point.
+This repo is on the honor system. Use PRs, look to history, behavior yourself.
+
+Right now this code is hanging out in a separate repo. It'll get merged back into cdo main in a few weeks.
 Until then, it hangs out in your package.json file under `cdo-ide-poc`
 
 You an update it with:
