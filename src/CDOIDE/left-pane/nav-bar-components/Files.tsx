@@ -5,7 +5,7 @@ import {
   getNextFolderId,
 } from "@cdoide/cdo-ide-context";
 
-import { ProjectType } from "@cdoide/types";
+import { ProjectType, FileId, FolderId } from "@cdoide/types";
 import { DEFAULT_FOLDER_ID } from "@cdoide/constants";
 import { findFolder, getErrorMessage } from "@cdoide/utils";
 
@@ -16,10 +16,10 @@ type FilesComponentProps = {
   folders: ProjectType["folders"];
   parentId?: string;
   files: ProjectType["files"];
-  newFilePrompt: (folderId?: string) => void;
-  moveFilePrompt: (fileId: string) => void;
-  renameFilePrompt: (fileId: string) => void;
-  renameFolderPrompt: (folderId: string) => void;
+  newFilePrompt: (folderId?: FolderId) => void;
+  moveFilePrompt: (fileId: FileId) => void;
+  renameFilePrompt: (fileId: FileId) => void;
+  renameFolderPrompt: (folderId: FolderId) => void;
 };
 
 const FilesBrowser = ({

@@ -1,25 +1,25 @@
-import { ProjectType } from "@cdoide/types";
+import { ProjectType, FileId, FolderId } from "@cdoide/types";
 export type ReplaceProjectFunction = (project: ProjectType) => void;
 
-export type SaveFileFunction = (fileId: string, contents: string) => void;
-export type CloseFileFunction = (fileId: string) => void;
-export type SetActiveFileFunction = (fileId: string) => void;
+export type SaveFileFunction = (fileId: FileId, contents: string) => void;
+export type CloseFileFunction = (fileId: FileId) => void;
+export type SetActiveFileFunction = (fileId: FileId) => void;
 
 export type NewFolderFunction = (arg: {
-  folderId: string;
+  folderId: FolderId;
   folderName: string;
-  parentId?: string;
+  parentId?: FolderId;
 }) => void;
-export type ToggleOpenFolderFunction = (folderId: string) => void;
-export type DeleteFolderFunction = (folderId: string) => void;
-export type OpenFileFunction = (fileId: string) => void;
-export type DeleteFileFunction = (fileId: string) => void;
+export type ToggleOpenFolderFunction = (folderId: FolderId) => void;
+export type DeleteFolderFunction = (folderId: FolderId) => void;
+export type OpenFileFunction = (fileId: FileId) => void;
+export type DeleteFileFunction = (fileId: FileId) => void;
 export type NewFileFunction = (arg: {
-  fileId: string;
+  fileId: FileId;
   fileName: string;
-  folderId?: string;
+  folderId?: FolderId;
   contents?: string;
 }) => void;
-export type RenameFileFunction = (fileId: string, newName: string) => void;
+export type RenameFileFunction = (fileId: FileId, newName: string) => void;
 export type RenameFolderFunction = (folderId: string, newName: string) => void;
-export type MoveFileFunction = (fileId: string, folderId: string) => void;
+export type MoveFileFunction = (fileId: FileId, folderId: FolderId) => void;
