@@ -163,7 +163,9 @@ export declare type RenameFileFunction = (fileId: FileId, newName: string) => vo
 
 export declare type RenameFolderFunction = (folderId: string, newName: string) => void;
 
-export declare type ReplaceProjectFunction = (project: ProjectType) => void;
+export declare type ReplaceProjectFunction = (project: ProjectType, shouldNotifyProjectUpdate: {
+    current: boolean;
+}) => void;
 
 export declare type SaveFileFunction = (fileId: FileId, contents: string) => void;
 
