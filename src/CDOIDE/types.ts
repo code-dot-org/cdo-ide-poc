@@ -6,6 +6,10 @@ export type LeftNavElement = {
 export type FileId = string;
 export type FolderId = string;
 
+export type PreviewComponent = (args: { file: ProjectFileType }) => JSX.Element;
+export type EditorComponent = () => JSX.Element;
+export type EmptyEditorComponent = () => JSX.Element;
+
 export type ConfigType = {
   showLeftNav?: boolean;
   showEditor?: boolean;
@@ -17,11 +21,12 @@ export type ConfigType = {
   sideBar: string[];
   instructions: string | undefined;
   leftNav: LeftNavElement[];
-  EditorComponent?: () => JSX.Element;
+  EditorComponent?: EditorComponent;
   editableFileTypes?: string[];
   previewFileTypes?: string[];
-  EmptyEditorComponent?: () => JSX.Element;
+  EmptyEditorComponent?: EmptyEditorComponent;
   blankEmptyEditor?: boolean;
+  PreviewComponents?: { [key: string]: PreviewComponent };
 };
 
 export type ProjectFolderType = {
