@@ -22841,7 +22841,10 @@ const IR = async (t, e) => {
           [i]: { ...t.files[i], active: !0, open: !0 }
         }
       };
-      return n && (s.files[n.id].active = !1), s;
+      return n && (s.files[n.id] = {
+        ...s.files[n.id],
+        active: !1
+      }), s;
     }
     case He.CLOSE_FILE: {
       const { fileId: i } = e.payload, n = t.files[i], s = {

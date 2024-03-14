@@ -103,7 +103,10 @@ export const projectReducer = (project: ProjectType, action: ReducerAction) => {
       };
 
       if (activeFile) {
-        newProject.files[activeFile.id].active = false;
+        newProject.files[activeFile.id] = {
+          ...newProject.files[activeFile.id],
+          active: false,
+        };
       }
 
       return newProject;
