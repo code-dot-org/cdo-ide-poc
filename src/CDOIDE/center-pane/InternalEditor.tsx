@@ -28,6 +28,7 @@ const Editor = () => {
     saveFile,
     config: { editableFileTypes, defaultTheme = "light" },
   } = useCDOIDEContext();
+
   const [theme, setTheme] = useState<EditorTheme>(defaultTheme);
   const EmptyEditor = useEmptyEditor();
 
@@ -66,7 +67,10 @@ const Editor = () => {
     <div className="editor-container">
       <div className="button-bar">
         <button onClick={() => format()}>Format</button>
-        <select onChange={(e) => setTheme(e.target.value as EditorTheme)}>
+        <select
+          onChange={(e) => setTheme(e.target.value as EditorTheme)}
+          value={theme}
+        >
           <option value="light">light theme</option>
           <option value="dark">dark theme</option>
         </select>
