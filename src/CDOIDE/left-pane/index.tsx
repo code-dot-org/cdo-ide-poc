@@ -29,9 +29,7 @@ export const LeftPane = () => {
     >
       {config.showSideBar && <SideBar />}
       <div className="left-pane-inner">
-        <div className="left-nav">
-          <NavBar setActivePane={setActivePane} activePane={activePane} />
-        </div>
+        <NavBar setActivePane={setActivePane} activePane={activePane} />
         <div className="left-main">
           <Component />
         </div>

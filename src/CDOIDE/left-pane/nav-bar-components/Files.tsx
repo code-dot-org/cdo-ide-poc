@@ -256,10 +256,12 @@ export const Files = () => {
     <div>
       <div className="files-toolbar">
         <button type="button" onClick={() => newFolderPrompt()}>
-          New Folder
+          <i className="fa-solid fa-folder" />
+          &nbsp; New Folder
         </button>
         <button type="button" onClick={() => newFilePrompt()}>
-          New File
+          <i className="fa-solid fa-file" />
+          &nbsp; New File
         </button>
       </div>
       <ul>

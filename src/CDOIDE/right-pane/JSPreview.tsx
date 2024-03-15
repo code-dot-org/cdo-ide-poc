@@ -4,6 +4,7 @@ import Sandbox from "websandbox";
 import "./styles/js-preview.css";
 
 import { DebuggerWrapper } from "@cdoide/debugger/DebuggerWrapper";
+import { RunBar } from "@cdoide/run-bar";
 
 import { ProjectFileType } from "@cdoide/types";
 
@@ -39,13 +40,13 @@ export const JSPreview = ({ file }: JSPreviewProps) => {
   };
 
   return (
-    <DebuggerWrapper contentFrameHeight="1fr" debuggerOutput={output}>
-      <div className="js-preview-container">
-        <div className="js-preview-output">pending...</div>
-        <div className="button-bar">
-          <button onClick={runSandbox}>Run</button>
+    <div className="js-preview-wrapper">
+      <DebuggerWrapper contentFrameHeight="1fr" debuggerOutput={output}>
+        <div className="js-preview-container">
+          <div className="js-preview-output">pending...</div>
         </div>
-      </div>
-    </DebuggerWrapper>
+      </DebuggerWrapper>
+      <RunBar run={runSandbox} />
+    </div>
   );
 };

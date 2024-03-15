@@ -14,3 +14,9 @@
   width: 99%;
   height: 100%;
 }
+
+.js-preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 25px);
+}

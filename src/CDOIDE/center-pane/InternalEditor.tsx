@@ -13,6 +13,8 @@ import { editableFileType, prettify } from "@cdoide/utils";
 import { useEmptyEditor } from "@cdoide/hooks";
 import { EditorTheme } from "@cdoide/types";
 
+import "./styles/internal-editor.css";
+
 const codeMirrorLangMapping: { [key: string]: LanguageSupport } = {
   html: html(),
   css: css(),
@@ -21,12 +23,12 @@ const codeMirrorLangMapping: { [key: string]: LanguageSupport } = {
 };
 
 const Editor = () => {
-  const [theme, setTheme] = useState<EditorTheme>("light");
   const {
     project,
     saveFile,
-    config: { editableFileTypes },
+    config: { editableFileTypes, defaultTheme = "light" },
   } = useCDOIDEContext();
+  const [theme, setTheme] = useState<EditorTheme>(defaultTheme);
   const EmptyEditor = useEmptyEditor();
 
   const file = Object.values(project.files).filter((f) => f.active)?.[0];
@@ -62,11 +64,13 @@ const Editor = () => {
 
   return (
     <div className="editor-container">
-      <button onClick={() => format()}>Format</button>
-      <select onChange={(e) => setTheme(e.target.value as EditorTheme)}>
-        <option value="light">light theme</option>
-        <option value="dark">dark theme</option>
-      </select>
+      <div className="button-bar">
+        <button onClick={() => format()}>Format</button>
+        <select onChange={(e) => setTheme(e.target.value as EditorTheme)}>
+          <option value="light">light theme</option>
+          <option value="dark">dark theme</option>
+        </select>
+      </div>
       {file && (
         <CodeMirror
           value={file.contents}

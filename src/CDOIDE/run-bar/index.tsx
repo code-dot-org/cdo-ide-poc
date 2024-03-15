@@ -1,16 +1,18 @@
 import React from "react";
 import "./styles/run-bar.css";
 
-export const RunBar = () => {
+const defaultCallback = () => window.alert("Not implemented");
+
+export const RunBar = ({ run = defaultCallback, finish = defaultCallback }) => {
   return (
     <div className="run-bar">
       <div>
-        <button type="button" onClick={() => alert("not implemented")}>
-          Share
+        <button type="button" onClick={run}>
+          Run
         </button>
       </div>
       <div>
-        <button type="button" onClick={() => alert("not implemented")}>
+        <button type="button" onClick={finish}>
           Finish
         </button>
       </div>

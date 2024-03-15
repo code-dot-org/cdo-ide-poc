@@ -19,7 +19,7 @@ Add javascript files (ending in .js) and execute javascript code in the right pa
 Use the file browser to add/rename/delete files, or to add/rename/delete folders (including hierarchically!)`;
 
 const defaultConfig: ConfigType = {
-  //showSideBar: true,
+  showSideBar: true,
   // showLeftNav: false,
   // showEditor: false,
   // showPreview: false,
@@ -29,7 +29,8 @@ const defaultConfig: ConfigType = {
   //EditorComponent: InternalEditor,
   // editableFileTypes: ["html"],
   // previewFileTypes: ["html"],
-  leftNav: [
+  defaultTheme: "dark",
+  /*leftNav: [
     {
       icon: "fa-square-check",
       component: "Instructions",
@@ -42,8 +43,19 @@ const defaultConfig: ConfigType = {
       icon: "fa-solid fa-magnifying-glass",
       component: "Search",
     },
+  ],*/
+  sideBar: [
+    {
+      icon: "fa-circle-question",
+      label: "Help",
+      action: () => window.alert("Help is not currently implemented"),
+    },
+    {
+      icon: "fa-folder",
+      label: "Files",
+      action: () => window.alert("You are already on the file browser"),
+    },
   ],
-  sideBar: ["fa-circle-question", "fa-folder"],
   instructions,
   //editableFileTypes: ["html", "json", "js", "css"],
   //previewFileTypes: ["json", "html", "js"],

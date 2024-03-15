@@ -10,6 +10,12 @@ export type PreviewComponent = (args: { file: ProjectFileType }) => JSX.Element;
 export type EditorComponent = () => JSX.Element;
 export type EmptyEditorComponent = () => JSX.Element;
 
+export type SideBarItem = {
+  icon: string;
+  action: () => void;
+  label?: string;
+};
+
 export type ConfigType = {
   showLeftNav?: boolean;
   showEditor?: boolean;
@@ -18,8 +24,9 @@ export type ConfigType = {
   showRunBar?: boolean;
   showDebug?: boolean;
   activeLeftNav: string;
-  sideBar: string[];
+  sideBar: SideBarItem[];
   instructions: string | undefined;
+  defaultTheme?: EditorTheme;
   leftNav: LeftNavElement[];
   EditorComponent?: EditorComponent;
   editableFileTypes?: string[];

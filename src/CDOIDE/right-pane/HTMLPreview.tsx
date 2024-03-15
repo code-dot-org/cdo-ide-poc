@@ -51,11 +51,12 @@ export const HTMLPreview = ({ file }: HTMLPreviewProps) => {
     <>
       {file && (
         <iframe
+          sandbox=""
           allow="self"
           title="Web Preview"
           ref={iframeRef}
           id="preview"
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%", backgroundColor: "white" }}
           srcDoc={srcdoc}
         />
       )}

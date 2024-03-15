@@ -5,15 +5,19 @@
 }
 
 .center-side-bar {
-  background-color: lightgray;
+  background-color: #3f444b;
 }
 
 .center-nav {
-  background-color: gray;
-  color: lightgray;
+  background-color: #3f444b;
+  color: white;
 }
 
 .center-debug {
   border: 1px solid black;
   background-color: #eee;
+}
+
+.center-main {
+  background-color: #292f36;
 }

@@ -5,7 +5,7 @@
 }
 
 .debugger-title-bar {
-  background-color: black;
+  background-color: #3f444b;
   color: white;
   display: grid;
   grid-template-columns: 1fr 150px;
@@ -21,4 +21,10 @@
 .debugger-view {
   background-color: #eee;
   white-space: pre;
+}
+
+.debugger-title-bar button {
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
 }

@@ -12,7 +12,9 @@ export const NavBar = ({ setActivePane, activePane }: NavBarProps) => {
   const {
     config: { leftNav },
   } = useCDOIDEContext();
-
+  if (!leftNav || !leftNav.length) {
+    return null;
+  }
   return (
     <div className="nav-bar">
       {leftNav.map((nav) => (
@@ -21,7 +23,7 @@ export const NavBar = ({ setActivePane, activePane }: NavBarProps) => {
           onClick={() => setActivePane(nav.component)}
           style={{
             cursor: "pointer",
-            backgroundColor: nav.component === activePane ? "#666" : "",
+            color: nav.component === activePane ? "#0093a4" : undefined,
           }}
         >
           <i className={`fa-regular fa-2xl ${nav.icon}`} />
