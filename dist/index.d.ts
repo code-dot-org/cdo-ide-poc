@@ -51,8 +51,9 @@ export declare type ConfigType = {
     showRunBar?: boolean;
     showDebug?: boolean;
     activeLeftNav: string;
-    sideBar: string[];
+    sideBar: SideBarItem[];
     instructions: string | undefined;
+    defaultTheme?: EditorTheme;
     leftNav: LeftNavElement[];
     EditorComponent?: EditorComponent;
     editableFileTypes?: string[];
@@ -176,6 +177,12 @@ export declare type SetActiveFileFunction = (fileId: FileId) => void;
 export declare type SetConfigFunction = (project: ConfigType) => void;
 
 export declare type SetProjectFunction = (project: ProjectType) => void;
+
+export declare type SideBarItem = {
+    icon: string;
+    action: () => void;
+    label?: string;
+};
 
 export declare const sortFilesByName: (files: ProjectType["files"], options?: {
     mustBeOpen: boolean;
