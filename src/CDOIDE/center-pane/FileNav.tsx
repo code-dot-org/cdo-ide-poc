@@ -12,14 +12,19 @@ export const FileNav = () => {
   return (
     <div className="files-nav-bar">
       {files.map((f) => (
-        <div className="file-tab" key={f.id} style={{ cursor: "pointer" }}>
-          <span
-            onClick={() => setActiveFile(f.id)}
-            style={{ fontWeight: f.active ? "bold" : "normal" }}
-          >
+        <div className={`file-tab ${f.active ? "active" : ""}`} key={f.id}>
+          <span onClick={() => setActiveFile(f.id)}>
+            <i className="fa-solid fa-file" />
+            &nbsp;
             {f.name}
           </span>
-          <span onClick={() => closeFile(f.id)}>X</span>
+          <button
+            type="button"
+            className="inline-button"
+            onClick={() => closeFile(f.id)}
+          >
+            <i className="fa-solid fa-x"></i>
+          </button>
         </div>
       ))}
     </div>

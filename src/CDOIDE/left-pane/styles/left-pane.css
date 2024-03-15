@@ -11,7 +11,8 @@
 }
 
 .left-side-bar {
-  background-color: lightgray;
+  background-color: #3f444b;
+  color: white;
 }
 
 .left-nav {
@@ -20,6 +21,7 @@
 }
 
 .left-main {
+  color: white;
   padding: 5px;
 }
 

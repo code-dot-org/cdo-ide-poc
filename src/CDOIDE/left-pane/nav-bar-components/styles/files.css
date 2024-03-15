@@ -1,5 +1,5 @@
 .left-main {
-  background-color: #eee;
+  background-color: #3f444b;
 }
 .left-main ul {
   padding-left: 10px;
@@ -13,8 +13,8 @@
   justify-content: space-between;
   cursor: pointer;
   width: 100%;
-  background-color: #eee;
-  color: black;
+  background-color: #3f444b;
+  color: white;
 }
 .left-main ul li span.title {
   display: flex;
@@ -37,4 +37,11 @@
 
 span.caret-container {
   padding-right: 2px;
+}
+
+.files-toolbar button {
+  border: 0px;
+  background-color: #3f444b;
+  color: white;
+  padding: 0;
 }

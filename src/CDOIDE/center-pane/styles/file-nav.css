@@ -1,7 +1,7 @@
 .files-nav-bar {
   display: flex;
   justify-content: flex-start;
-  gap: 4px;
+  gap: 6px;
   align-items: flex-end;
   height: 100%;
   overflow-x: scroll;
@@ -9,9 +9,29 @@
 }
 
 .file-tab {
-  border: 1px solid black;
-  padding: 2px;
+  // border: 1px solid black;
+  padding: 0px;
   display: flex;
+  cursor: pointer;
+
   justify-content: space-between;
   gap: 10px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.inline-button {
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  white-space: nowrap;
+}
+
+.file-tab.active {
+  font-weight: bold;
+  background-color: #292f36;
 }
