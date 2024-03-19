@@ -30,6 +30,9 @@ import Sortable from "./Sortable";
 export const FileNav = () => {
   const { project } = useCDOIDEContext();
   const sortedFiles = sortFilesByName(project.files, { mustBeOpen: true });
+  // TODO: we need to update the file list in the context when the files change (e.g. when a file is closed or opened)
+  // We also probably need to add a tab index to the file state so we can open in the same order
+  // every time.
   const [files, setFiles] = useState(sortedFiles);
   const sensors = useSensors(
     useSensor(PointerSensor),
