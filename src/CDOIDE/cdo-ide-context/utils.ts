@@ -121,6 +121,7 @@ export const useProjectUtilities = (
         });
       }),
       setActiveFile: <SetActiveFileFunction>((fileId) => {
+        console.log('setting active file');
         dispatch({
           type: PROJECT_REDUCER_ACTIONS.ACTIVATE_FILE,
           payload: { fileId },
