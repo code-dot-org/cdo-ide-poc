@@ -58,6 +58,7 @@ export const FileNav = () => {
 
   function handleDragStart(event: DragStartEvent) {
     setDraggingFileId(event.active.id as string);
+    // set file to active
   }
 
   return (
