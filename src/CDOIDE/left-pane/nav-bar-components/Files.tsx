@@ -25,9 +25,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import {
-  restrictToVerticalAxis,
-} from "@dnd-kit/modifiers";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import Sortable from "@cdoide/center-pane/Sortable";
 
 type FilesComponentProps = {
@@ -41,7 +39,7 @@ type FilesComponentProps = {
   renameFolderPrompt: (folderId: FolderId) => void;
 };
 
-const FilesBrowser = ({
+const SortableFilesBrowser = ({
   parentId,
   folders,
   files,
@@ -51,10 +49,9 @@ const FilesBrowser = ({
   renameFilePrompt,
   renameFolderPrompt,
 }: FilesComponentProps) => {
-  const { openFile, deleteFile, toggleOpenFolder, deleteFolder, moveFile } =
-    useCDOIDEContext();
+  const { moveFile } = useCDOIDEContext();
   const sensors = useSensors(
-    useSensor(PointerSensor, {activationConstraint: {distance: 10}}),
+    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
@@ -80,7 +77,7 @@ const FilesBrowser = ({
   }
 
   function handleDragOver(event: DragOverEvent) {
-    console.log({dragOverEvent: event});
+    console.log({ dragOverEvent: event });
   }
 
   const fileAndFolderIds = [
@@ -100,89 +97,118 @@ const FilesBrowser = ({
         items={fileAndFolderIds}
         strategy={verticalListSortingStrategy}
       >
-        {Object.values(folders)
-          .filter((f) => f.parentId === parentId)
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .map((f) => {
-            const caret = (
-              <i
-                className={
-                  f.open ? "fa-solid fa-caret-down" : "fa-solid fa-caret-right"
-                }
-              />
-            );
-            return (
-              <Sortable id={`folder-${f.id}`} key={`folder-${f.id}`}>
-                <li key={f.id + f.open}>
-                  <span className="label">
-                    <span className="title">
-                      <span
-                        className="caret-container"
-                        onClick={() => toggleOpenFolder(f.id)}
-                      >
-                        {caret}
-                      </span>
-                      <span>{f.name}</span>
-                    </span>
+        <FilesBrowser
+          parentId={parentId}
+          folders={folders}
+          files={files}
+          newFolderPrompt={newFolderPrompt}
+          newFilePrompt={newFilePrompt}
+          moveFilePrompt={moveFilePrompt}
+          renameFilePrompt={renameFilePrompt}
+          renameFolderPrompt={renameFolderPrompt}
+        />
+      </SortableContext>
+    </DndContext>
+  );
+};
 
-                    <span className="button-bar">
-                      <span onClick={() => renameFolderPrompt(f.id)}>
-                        <i className="fa-solid fa-pencil" />
-                      </span>
-                      <span onClick={() => newFolderPrompt(f.id)}>
-                        <i className="fa-solid fa-folder-plus" />
-                      </span>
-                      <span onClick={() => newFilePrompt(f.id)}>
-                        <i className="fa-solid fa-plus" />
-                      </span>
-                      <span onClick={() => deleteFolder(f.id)}>
-                        <i className="fa-solid fa-trash" />
-                      </span>
-                    </span>
-                  </span>
-                  {f.open && (
-                    <ul>
-                      <FilesBrowser
-                        folders={folders}
-                        newFolderPrompt={newFolderPrompt}
-                        parentId={f.id}
-                        files={files}
-                        newFilePrompt={newFilePrompt}
-                        moveFilePrompt={moveFilePrompt}
-                        renameFilePrompt={renameFilePrompt}
-                        renameFolderPrompt={renameFolderPrompt}
-                      />
-                    </ul>
-                  )}
-                </li>
-              </Sortable>
-            );
-          })}
-        {Object.values(files)
-          .filter((f) => f.folderId === parentId)
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .map((f) => (
-            <Sortable id={`file-${f.id}`} key={`file-${f.id}`}>
-              <li key={f.id}>
+const FilesBrowser = ({
+  parentId,
+  folders,
+  files,
+  newFolderPrompt,
+  newFilePrompt,
+  moveFilePrompt,
+  renameFilePrompt,
+  renameFolderPrompt,
+}: FilesComponentProps) => {
+  const { openFile, deleteFile, toggleOpenFolder, deleteFolder } =
+    useCDOIDEContext();
+
+  return (
+    <>
+      {Object.values(folders)
+        .filter((f) => f.parentId === parentId)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((f) => {
+          const caret = (
+            <i
+              className={
+                f.open ? "fa-solid fa-caret-down" : "fa-solid fa-caret-right"
+              }
+            />
+          );
+          return (
+            <Sortable id={`folder-${f.id}`} key={`folder-${f.id}`}>
+              <li key={f.id + f.open}>
                 <span className="label">
-                  <span onClick={() => openFile(f.id)}>{f.name}</span>
-                  <span className="button-bar">
-                    <span onClick={() => moveFilePrompt(f.id)}>
-                      <i className="fa-solid fa-arrow-right" />
+                  <span className="title">
+                    <span
+                      className="caret-container"
+                      onClick={() => toggleOpenFolder(f.id)}
+                    >
+                      {caret}
                     </span>
-                    <span onClick={() => renameFilePrompt(f.id)}>
+                    <span>{f.name}</span>
+                  </span>
+
+                  <span className="button-bar">
+                    <span onClick={() => renameFolderPrompt(f.id)}>
                       <i className="fa-solid fa-pencil" />
                     </span>
-                    <span onClick={() => deleteFile(f.id)}>
+                    <span onClick={() => newFolderPrompt(f.id)}>
+                      <i className="fa-solid fa-folder-plus" />
+                    </span>
+                    <span onClick={() => newFilePrompt(f.id)}>
+                      <i className="fa-solid fa-plus" />
+                    </span>
+                    <span onClick={() => deleteFolder(f.id)}>
                       <i className="fa-solid fa-trash" />
                     </span>
                   </span>
                 </span>
+                {f.open && (
+                  <ul>
+                    <FilesBrowser
+                      folders={folders}
+                      newFolderPrompt={newFolderPrompt}
+                      parentId={f.id}
+                      files={files}
+                      newFilePrompt={newFilePrompt}
+                      moveFilePrompt={moveFilePrompt}
+                      renameFilePrompt={renameFilePrompt}
+                      renameFolderPrompt={renameFolderPrompt}
+                    />
+                  </ul>
+                )}
               </li>
             </Sortable>
-          ))}
-      </SortableContext>
-    </DndContext>
+          );
+        })}
+      {Object.values(files)
+        .filter((f) => f.folderId === parentId)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((f) => (
+          <Sortable id={`file-${f.id}`} key={`file-${f.id}`}>
+            <li key={f.id}>
+              <span className="label">
+                <span onClick={() => openFile(f.id)}>{f.name}</span>
+                <span className="button-bar">
+                  <span onClick={() => moveFilePrompt(f.id)}>
+                    <i className="fa-solid fa-arrow-right" />
+                  </span>
+                  <span onClick={() => renameFilePrompt(f.id)}>
+                    <i className="fa-solid fa-pencil" />
+                  </span>
+                  <span onClick={() => deleteFile(f.id)}>
+                    <i className="fa-solid fa-trash" />
+                  </span>
+                </span>
+              </span>
+            </li>
+          </Sortable>
+        ))}
+    </>
   );
 };
 
@@ -329,7 +355,7 @@ export const Files = () => {
         </button>
       </div>
       <ul>
-        <FilesBrowser
+        <SortableFilesBrowser
           parentId={DEFAULT_FOLDER_ID}
           folders={project.folders}
           newFolderPrompt={newFolderPrompt}
