@@ -1,6 +1,4 @@
 declare module "cdo-ide-poc" {
-/// <reference types="react" />
-
 import { JSX as JSX_2 } from 'react/jsx-runtime';
 import { default as React_2 } from 'react';
 
