@@ -80,6 +80,10 @@ const SortableFilesBrowser = ({
     console.log({ dragOverEvent: event });
   }
 
+  // TODO: implement this style instead: https://docs.dndkit.com/presets/sortable#multiple-containers
+  // each FilesBrowser should maintain its own SortableContext with its top-level list of folders + files,
+  // sorted alphabetically. It should also have a droppable container?
+
   const fileAndFolderIds = [
     ...Object.keys(folders).map((f) => `folder-${f}`),
     ...Object.keys(files).map((f) => `file-${f}`),
