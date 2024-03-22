@@ -6,6 +6,18 @@ This is an extremely early POC. There is a lot of iteration to do.
 
 This repo is on the honor system. Use PRs, look to history, behavior yourself.
 
+## Running locally
+
+```
+cd cdo-ide-poc
+npm run
+npm run dev
+
+go to http://localhost:5173
+```
+
+Or you can use it in the main repo.
+
 Right now this code is hanging out in a separate repo. It'll get merged back into cdo main in a few weeks.
 Until then, it hangs out in your package.json file under `cdo-ide-poc`
 
